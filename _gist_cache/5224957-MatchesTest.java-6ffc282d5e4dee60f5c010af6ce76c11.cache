@@ -1,0 +1,46 @@
+import static org.junit.Assert.*;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+public class MatchesTest {
+ 
+  private static Validator validator;  
+ 
+  @BeforeClass
+  public static void setUp() {
+    ValidatorFactory factory 
+      = Validation.buildDefaultValidatorFactory();
+    validator = factory.getValidator();
+  }
+
+  @Test
+  public void testPasswordsNotMatching () {
+    CreateUserAccountForm form 
+      = new CreateUserAccountForm ("Password1", "PasswordBlah");
+      
+    Set> constraintViolations =
+
+    validator.validate(form);
+
+    assertEquals(1, constraintViolations.size());
+    assertEquals(
+     "Your confirmation password does not match the password you entered.", 
+      constraintViolations.iterator().next()
+      .getInterpolatedMessage());
+  }
+  
+  @Test
+  public void testPasswordsValid() {
+    CreateUserAccountForm form 
+      = new CreateUserAccountForm("Password1", "Password1");
+
+    Set> constraintViolations = 
+      validator.validate(form);
+    assertEquals(0, constraintViolations.size());
+  }
+}
