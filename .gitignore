@@ -1,5 +1,7 @@
 _site/*
-_theme_packages/*
+_theme_packages/
+_rake/tmp
+/tmp
 
 Thumbs.db
 .DS_Store
