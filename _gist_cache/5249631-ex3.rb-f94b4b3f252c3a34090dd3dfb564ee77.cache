@@ -1,0 +1,3 @@
+10.times {puts "Heather"}
+//or
+puts "Heather " * 10

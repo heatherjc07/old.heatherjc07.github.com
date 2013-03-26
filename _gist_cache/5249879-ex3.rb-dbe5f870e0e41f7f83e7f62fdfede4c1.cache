@@ -1,0 +1,2 @@
+animal_array = [["dog","woof"],["cat","meow"],["pig","oink"],["cow","moo"]]
+animal_hash = Hash[animal_array]

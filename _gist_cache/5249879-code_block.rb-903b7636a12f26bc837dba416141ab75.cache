@@ -1,0 +1,7 @@
+pets = ['dog and ', 'cats and', 'rabbits']
+pets.each {|a| puts a}
+
+# Returns
+# dogs and
+# cats and
+# rabbits

@@ -1,0 +1,14 @@
+subjects = ['art', 'maths', 'history']
+# returns ["art", "maths", "history"]
+
+subjects[2]
+# returns "history"
+
+subjects[10]
+#returns nil
+
+subjects[-2]
+#returns "maths"
+
+subjects[0..1]
+#returns ['art', 'maths']

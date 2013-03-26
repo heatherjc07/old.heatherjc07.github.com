@@ -1,0 +1,18 @@
+example = [1,2,3,4]
+#queue
+p "Using an array as a queue"
+p "unshift"
+p example.unshift(0)
+p "shift"
+p example.shift
+#stack
+p "Using an array as a stack"
+p "push"
+p example.push(5)
+p "pop"
+p example.pop
+#set
+p "Using an array as a set"
+orig = [1,1,1,2,3,3,4,5]
+p orig
+p orig.uniq

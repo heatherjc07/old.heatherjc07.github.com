@@ -2,8 +2,8 @@
 layout: post
 title: "Gracious Behaviour"
 description: ""
-category: 
-tags: []
+category: development 
+tags: [relationships, soft skills, career development]
 ---
 {% include JB/setup %}
 

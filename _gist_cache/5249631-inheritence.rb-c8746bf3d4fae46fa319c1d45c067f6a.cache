@@ -1,0 +1,6 @@
+i = 0
+a = ['100', 100.0]
+while i < 2
+  puts a[i].to_i
+  i = i + 1
+end

@@ -1,0 +1,7 @@
+file = File.open("example.txt", "w")
+file.puts "accessing without a code block"
+file.close
+
+File.open("example2.txt", "w") do |f| 
+  f << 'accessing with a block' 
+end 

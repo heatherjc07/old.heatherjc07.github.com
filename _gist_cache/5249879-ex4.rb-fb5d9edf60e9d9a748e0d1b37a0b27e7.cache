@@ -1,0 +1,1 @@
+h.each {|key, value| puts "#{key} makes a #{value} noise" }
