@@ -1,0 +1,23 @@
+module Roar 
+  def roar 
+    puts 'roooooaar!'
+  end 
+end 
+
+class Lion 
+  include Roar 
+end 
+
+# roooooaar!
+Lion.new.roar 
+# NoMethodError: undefined method 'roar' for Lion:Class 
+Lion.roar 
+ 
+class Lion 
+  extend Roar 
+end 
+
+# roooooaar!
+Lion.roar
+# NoMethodError: undefined method 'roar' for #Lion 
+Lion.new.roar 

@@ -1,0 +1,22 @@
+class Numeric 
+
+  def ounces 
+    self 
+  end 
+
+  def pound 
+    self * 16.ounces 
+  end 
+
+  def stone 
+    self * 14.pound 
+  end 
+
+end 
+
+puts 32.ounces 
+puts 4.pound
+
+# Returns 
+# 32
+# 64 

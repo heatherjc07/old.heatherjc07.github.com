@@ -1,0 +1,10 @@
+module Greeter 
+  extend self 
+  def hello 
+    "hi" 
+  end 
+end 
+
+Greeter.hello 
+# Returns 
+# "hi"

@@ -1,0 +1,28 @@
+# somewhere in your_xml_lib 
+
+module XML 
+
+  class Document 
+    # ... 
+  end 
+
+end 
+
+# somewhere in their_pdf_lib 
+
+module PDF 
+
+  class Document 
+    # ... 
+  end 
+
+end
+
+#In your class
+
+require "your_xml_lib" 
+require "their_pdf_lib" 
+
+#this pair of calls refer to two completely different classes 
+pdf_document = PDF::Document.new 
+xml_document = XML::Document.new 
