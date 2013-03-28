@@ -1,0 +1,2 @@
+Madonna := Object clone
+Madonna clone := Madonna

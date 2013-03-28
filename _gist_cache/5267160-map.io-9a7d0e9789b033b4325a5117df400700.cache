@@ -1,0 +1,12 @@
+horse := Map clone
+horse atPut("home", "stable")
+horse at("home") //returns home = "stable"
+horse atPut("food", "hay") //returns food = "hay"
+horse asList //returns list(list("food", "hay"), list("home", "stable"))
+horse keys //returns list("food", "home") 
+horse size //returns 2
+
+
+
+
+

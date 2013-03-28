@@ -1,0 +1,3 @@
+Vehicle := Object clone
+Vehicle description := "Something to take you places"
+Vehicle slotNames println

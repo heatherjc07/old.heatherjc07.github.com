@@ -1,0 +1,7 @@
+Baby := Object clone 
+Baby description := "A little person" 
+Baby cry := method("Wahh" println) 
+Baby slotNames println 
+// Returns list(cry, description, type)
+Baby cry
+// Returns "Wahh"

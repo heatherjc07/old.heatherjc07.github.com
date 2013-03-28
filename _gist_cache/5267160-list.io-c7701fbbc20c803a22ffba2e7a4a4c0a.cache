@@ -1,0 +1,7 @@
+pets := list("dog", "cat") // returns list("dog", "cat")
+pets size // returns 2
+pets append("rabbit") //returns list("dog", "cat", "rabbit")
+list(1, 2, 3, 4)
+list(1, 2, 3, 4) average //returns 2.5
+list(1, 2, 3, 4) sum //returns 10
+list(1, 2, 3) pop // returns 3

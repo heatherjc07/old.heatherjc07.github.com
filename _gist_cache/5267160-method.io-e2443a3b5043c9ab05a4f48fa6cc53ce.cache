@@ -1,0 +1,4 @@
+Car drive := method("Vroom" println) 
+ferrari := Car clone 
+ferrari drive 
+//Returns Vroom

@@ -1,0 +1,2 @@
+ferrari getSlot("drive") 
+// Returns method ("Vroom" println)

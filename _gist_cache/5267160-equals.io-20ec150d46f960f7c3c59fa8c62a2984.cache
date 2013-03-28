@@ -1,0 +1,3 @@
+::=  //Creates slot, creates setter, assigns value 
+:=   //Creates slot, assigns value 
+=    //Assigns value to slot if it exists, otherwise raises exception 

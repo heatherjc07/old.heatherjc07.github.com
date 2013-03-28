@@ -1,0 +1,3 @@
+if(0) println    // true
+if("") println   //true
+if(nil) println  //false
