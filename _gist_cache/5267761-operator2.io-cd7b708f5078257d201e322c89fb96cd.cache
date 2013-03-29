@@ -1,0 +1,1 @@
+OperatorTable addOperator("xor", 11)

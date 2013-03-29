@@ -1,0 +1,6 @@
+while(i &lt;= 11, i println; i = i + 1); 
+  "This one goes up to 11" println
+for(i, 1, 11, i println); 
+  "This one goes up to 11" println
+if(false) then("It is true." println) 
+  else("It is false." println)
