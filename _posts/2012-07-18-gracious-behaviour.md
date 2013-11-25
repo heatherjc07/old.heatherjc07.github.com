@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Gracious Behaviour"
-description: ""
+description: "The importance of gracious behaviour"
 category: development 
-tags: [relationships, soft skills, career development]
+tags: [relationships, soft skills, career development, 12 essential skills]
 ---
 {% include JB/setup %}
 

@@ -1,0 +1,11 @@
+@(errors: Seq[FormError])
+<div class="validation-summary">
+    <h1>There was a problem submitting the form</h1>
+    <p>Please try the following:</p>
+    <ol>
+        @errors.map { err =>
+        <li><a href="#@err.key">@Messages(err.message)</a></li>
+        }
+    </ol>
+</div>
+

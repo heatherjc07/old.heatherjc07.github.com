@@ -1,0 +1,2 @@
+lists:map(fun(X) -> X * X end, Numbers). 
+% returns [1,4,9,16] 

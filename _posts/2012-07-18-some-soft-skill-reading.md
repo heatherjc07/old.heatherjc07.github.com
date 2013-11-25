@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Some Soft Skill Reading"
-description: ""
-category: development 
-tags: [soft skills, career development, relationships]
+description: "12 Essentail Skills for Software Engineers, Review"
+category: books 
+tags: [soft skills, career development, relationships, 12 essential skills]
 ---
 {% include JB/setup %}
 

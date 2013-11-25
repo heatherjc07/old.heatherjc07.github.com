@@ -1,0 +1,10 @@
+W = 1.
+X = 2.
+Y = 3.
+Z = 4.
+All = <<W:3, X:3, Y:5, Z:5>>.
+% << >> constructor
+% 3 bits for W
+% 3 bits for X
+% 5 bits for Y
+% 5 bits for Z

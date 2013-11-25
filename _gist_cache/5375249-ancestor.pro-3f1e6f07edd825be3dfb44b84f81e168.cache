@@ -1,0 +1,16 @@
+father(samuel, desmond). 
+father(desmond, heather). 
+father(pat, stephen). 
+father(stephen, luke).  
+
+ancestor(X, Y) :- father(X, Y). 
+ancestor(X, Y) :- father(X, Z), ancestor(Z, Y).  
+
+% In the interpreter type
+% ancestor(samuel, heather). 
+% Returns true  
+
+% ancestor(Who, luke). 
+% Returns 
+% Who = stephen ? a 
+% Who = pat 

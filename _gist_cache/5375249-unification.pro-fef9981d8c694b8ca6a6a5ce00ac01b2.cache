@@ -1,0 +1,18 @@
+| ?- (A, 2, C) = (1, B, 3). 
+A = 1 
+B = 2 
+C = 3 
+
+% Returns 
+% yes 
+
+| ?- [2, 2, 3] = [X, X, Z]. 
+
+% Returns 
+% X=2 
+% Z=3 
+% yes 
+
+| ?- [1, 2, 3] = [X, X, Z]. 
+% Returns 
+% no 

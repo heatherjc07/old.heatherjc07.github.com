@@ -1,0 +1,4 @@
+WithTax = [{Product, Quantity, Price, Price * Quantity * 0.08}
+ || {Product, Quantity, Price} <- Basket].
+% returns [{pencil,4,0.25,0.08},{pen,1,1.2,0.096},
+% {paper,2,0.2,0.032}]

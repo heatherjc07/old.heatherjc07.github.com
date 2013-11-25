@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Passionate Programmer"
-description: "Review of the Pragmatic Bookshelf Book of the Same Name"
+description: "Review of the Passionate Programmer, Pragmatic Bookshelf"
 category: books
-tags: [career development]
+tags: [career development, passionate programmer]
 ---
 {% include JB/setup %}
 No it's not an erotic novel about an excitable programmer but a guide to how you can refind your passion for IT and programming in particular.

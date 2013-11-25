@@ -1,0 +1,5 @@
+Cat = [{Product, Price} || {Product, _, Price} &lt;- Basket].
+% returns [{pencil,0.25},{pen,1.2},{paper,0.2}]
+
+DiscountedCat = [{Product, Price / 2} || {Product, Price} <- Basket].
+% returns [{pencil,0.125},{pen,0.6},{paper,0.1}]

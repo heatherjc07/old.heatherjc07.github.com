@@ -1,0 +1,32 @@
+-module(doctor).
+-export([loop/0]).
+loop() ->
+  process_flag(trap_exit, true),
+  receive
+    new ->
+      io:format("Creating and monitoring process.~n"),
+      register(revolver, spawn_link(fun roulette:loop/0)),
+      loop();
+    {'EXIT', From, Reason} ->
+      io:format("The shooter died with reason ~p.", [Reason]),
+      io:format(" Restarting. ~n"),
+      self() ! new,
+      loop()
+end. 
+
+c(doctor).
+Doc = spawn(fun doctor:loop/0).
+Doc ! new.
+% prints "Creating and monitoring process."
+
+revolver ! 1.
+% prints "click"
+
+revolver ! 3.
+% prints "bang."
+% prints "The shooter died with reason {roulette,die,at,{8,53,40}}.
+Restarting."
+% prints "Creating and monitoring process."
+
+revolver ! 4.
+% prints "click"

@@ -1,0 +1,4 @@
+<<A:3, B:3, C:5, D:5>> = All.
+% uses pattern matching
+A. % 1
+D. % 4

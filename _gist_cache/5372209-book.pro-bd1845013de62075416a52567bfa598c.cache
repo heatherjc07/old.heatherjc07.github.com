@@ -1,0 +1,9 @@
+wrote(marian_keyes, sushi_for_beginners). 
+wrote(freya_north, pip). 
+wrote(marian_keyes, watermelon). 
+wrote(marian_keyes, last_chance_saloon). 
+wrote(freya_north, fen).
+
+% In the interpreter I ran the following commands
+% ?- wrote(marian_keyes, _).
+% ?- wrote(freya_north, _).

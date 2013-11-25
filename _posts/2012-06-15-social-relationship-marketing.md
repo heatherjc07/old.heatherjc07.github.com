@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Social Relationship Marketing"
-description: ""
+description: "Social Relationship Management"
 category: development 
 tags: [branding, relationships, social networks, networking]
 ---

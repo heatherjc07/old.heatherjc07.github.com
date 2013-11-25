@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Oracle Cloud Event"
-description: ""
+description: "Keypoints of the Oracle Cloud Event"
 category: products
 tags: [cloud, oracle, services]
 ---

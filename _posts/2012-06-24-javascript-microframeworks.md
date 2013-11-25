@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "JavaScript MicroFrameworks"
-description: ""
+description: "Introduction to JavaScript MicroFrameworks"
 category: technologies
 tags: [JavaScript, MicroFrameworks]
 ---

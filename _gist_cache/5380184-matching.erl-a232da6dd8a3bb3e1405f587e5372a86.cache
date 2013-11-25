@@ -1,0 +1,5 @@
+-mo-module(matching_function).
+-export([number/1]).
+number(one) -> 1; % not last line so terminate with ;
+number(two) -> 2;
+number(three) -> 3. % not last line so terminate with .dule(matching_function).

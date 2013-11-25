@@ -1,0 +1,10 @@
+-module(square). 
+-export([square_all/1]). 
+
+square_all([]) -> []; 
+square_all([First|Rest]) -> [First * First|square_all(Rest)]. 
+
+c(square). 
+{ok,square} 
+square:square_all([1, 2, 3]). 
+% returns [1,4,9] 

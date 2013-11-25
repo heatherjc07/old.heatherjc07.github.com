@@ -1,0 +1,19 @@
+{
+   name : "Heather Campbell",
+   title: "Getting Started with MongoDB",
+   created : "Thu Sep 20 2007 00:00:00 GMT -0700 (PDT)",
+   content : "blah mongodb blah",
+   tags : ["mongodb", "nosql", "databases", "data"],
+   comments : [
+                { 
+                  name: "Jack Black", 
+                  posted: "Sat Sep 22 2007 00:00:00 GMT -0700"
+                  text: "Good Intro"
+                },
+                { 
+                  name: "Paula Mills", 
+                  posted: "Mon Sep 24 2007 00:00:00 GMT -0700"
+                  text: "Thanks for posting this"
+                }
+                ]
+}

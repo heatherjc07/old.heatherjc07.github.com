@@ -1,0 +1,4 @@
+lists:any(Small, [0, 1, 2, 3]). 
+% returns true 
+lists:any(Small, [3, 4, 5]). 
+% returns false

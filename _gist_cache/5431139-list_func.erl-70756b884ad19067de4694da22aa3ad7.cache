@@ -1,0 +1,11 @@
+lists:takewhile(Small, Numbers). 
+% returns [1,2] 
+
+lists:dropwhile(Small, Numbers). 
+% returns [3,4] 
+
+lists:takewhile(Small, [1, 2, 1, 4, 1]). 
+% returns [1,2,1] 
+
+lists:dropwhile(Small, [1, 2, 1, 4, 1]). 
+% returns [4,1]

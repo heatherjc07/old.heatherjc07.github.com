@@ -1,0 +1,17 @@
+@(field: play.api.data.Field, args: (Symbol,Any)*)
+
+@import play.api.i18n._
+
+@argsMap = @{ args.toMap }
+@htmlArgs = @{ args.filter(!_._1.name.startsWith("_")).toMap }
+@classes = @{ argsMap.getOrElse('_classes, "").asInstanceOf[String] }
+
+<p class="group @if(field.hasErrors) {validation}">
+    <span class="validation-message">@field.errors.map(e => Messages(e.message)).mkString(", ")</span>
+    <label for="@field.id">@argsMap.getOrElse('_label, field.name)
+        @if(argsMap.getOrElse('_mandatory, false).asInstanceOf[Boolean]) {
+        <abbr title="Mandatory">*</abbr>
+        }
+    </label>
+    <input id="@field.id" name="@field.name" class="input-date"type="text" value="@field.value" @toHtmlArgs(htmlArgs)>
+</p>

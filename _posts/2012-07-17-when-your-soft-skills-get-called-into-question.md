@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "When Your Soft Skills Get Called Into Question"
-description: ""
+description: "Developing your soft skills"
 category: development
 tags: [career development, soft skills]
 ---

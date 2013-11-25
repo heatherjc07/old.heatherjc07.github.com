@@ -1,0 +1,4 @@
+! ? - [a, b, c]  = [Head|Tail]. 
+% Returns 
+% Head = a 
+% Tail = [b,c]

@@ -1,0 +1,31 @@
+-module(buy_sync).
+-export([purchase/0, purchaser/3]).
+purchase() ->
+  receive
+     finished ->
+            io:format("purchases finished~n", []);
+     {From,{purchase, Item, Quantity}} -&gt;
+            io:format("purchase received: 
+              ~p ~p ~n", [Quantity, Item]),
+     From! printed,
+            purchase()
+end.
+
+purchaser(To, Item, Quantity) ->
+  To ! {self(), {purchase, Item, Quantity }},
+  receive
+     printed -&gt;
+           io:format("Purchase Printed~n", [])
+
+end.
+
+c(buy_sync).
+PurchasePrinter = spawn(fun buy_sync:purchase/0).
+buy_sync:purchaser(PurchasePrinter, "pen", 3).
+% prints "purchase received: 3 pen"
+% prints "Purchase Printed"
+buy_sync:purchaser(PurchasePrinter, "desk", 1).
+% prints "purchase received: 1 desk"
+% prints "Purchase Printed"
+PurchasePrinter ! finished.
+% prints "purchases finished"

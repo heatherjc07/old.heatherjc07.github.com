@@ -1,0 +1,6 @@
+Adder = fun(ListItem, SumSoFar) -> ListItem + SumSoFar end. 
+Numbers = [1,2,3,4].
+InitialSum = 0. 
+
+lists:foldl(Adder, InitialSum, Numbers). 
+% returns 10

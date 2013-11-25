@@ -1,0 +1,28 @@
+object Global extends GlobalSettings{
+
+ override def onStart(app: Application) {
+  Logger.info("Application starting up...")
+  startTestEmailServer(2526)
+  if (Controls.count() == 0) {
+    seedMongoDB
+    Logger.info("Detected empty database...seeding data")
+  }
+ }
+
+ override def onStop(app: Application) {
+   stopTestEmailServer
+   Logger.info("Application shutdown...")
+ }
+
+  override def onHandlerNotFound(request: RequestHeader) = {
+    NotFound(
+      views.html.error(Messages("application.title"), Messages("error.notFound"))
+    )
+  }
+
+  override def onError(request: RequestHeader, ex: Throwable) = {
+    InternalServerError(
+      views.html.error(Messages("application.title"), Messages("error.problem"))
+    )
+  }
+}

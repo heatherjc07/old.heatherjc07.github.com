@@ -1,0 +1,6 @@
+Var = 1. % 1
+Var = 2.
+%=ERROR REPORT==== 8-Jan-2010::11:47:46 ===
+%Error in process &lt;0.39.0&gt; with exit value: 
+% {{badmatch,2},[{erl_eval,expr,3}]}
+%** exited: {{badmatch,2},[{erl_eval,expr,3}]} **

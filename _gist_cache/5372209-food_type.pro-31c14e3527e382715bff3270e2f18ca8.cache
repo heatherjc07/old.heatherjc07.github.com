@@ -1,0 +1,7 @@
+% Run the following in the interpreter
+% food_type(What, meat). 
+% returns
+% What = spam? ; 
+% What = sausage? ; 
+% What = ham? ; 
+% no

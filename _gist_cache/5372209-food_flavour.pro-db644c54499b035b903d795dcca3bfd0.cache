@@ -1,0 +1,10 @@
+% food_flavour(sausage, sweet). 
+% returns no
+
+% food_flavour(What, savoury). 
+% returns
+% What = cheddar ?; 
+% What = spam?; 
+% What = sausage?; 
+% What = ham ?; 
+% no 

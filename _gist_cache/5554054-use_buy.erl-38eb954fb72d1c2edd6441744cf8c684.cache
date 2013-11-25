@@ -1,0 +1,8 @@
+c(buy).
+Pid = spawn(fun buy:purchase/0).
+Pid ! {purchase, "pen", 3}.
+% prints "purchase received: 3 pen"
+Pid ! {purchase, "desk", 1}.
+% prints "purchase received: 1 desk"
+Pid ! finished.
+% prints "purchases finished"

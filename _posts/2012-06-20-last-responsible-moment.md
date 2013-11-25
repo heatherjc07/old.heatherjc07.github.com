@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Last Responsible Moment"
-description: ""
+description: "Ovewview of last responsible moment"
 category: skills
 tags: [design, lean]
 ---

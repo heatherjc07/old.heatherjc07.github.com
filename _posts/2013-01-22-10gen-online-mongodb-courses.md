@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "10gen Online MongoDB Courses"
-description: ""
+description: "10gen Online MongoDB Courses"
 category: development
 tags: [10gen, mongodb, online courses, nosql, databases]
 ---

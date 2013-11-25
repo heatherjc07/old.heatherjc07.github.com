@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Seven Languages in Seven Weeks"
-description: ""
+description: "Seven Languages in Seven Weeks"
 category: books 
 tags: [design, languages, seven languages in seven weeks]
 ---

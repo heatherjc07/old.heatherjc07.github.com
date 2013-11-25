@@ -1,0 +1,14 @@
+{
+   name : "John Black"
+}
+
+
+{
+   name : "Kate Reynolds",
+   age  : 35 
+}
+
+{
+   name : "Jane Scott",
+   profession : "programmer" 
+} 

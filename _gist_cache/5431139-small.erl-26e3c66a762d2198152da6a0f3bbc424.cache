@@ -1,0 +1,4 @@
+Small = fun(X) -> X < 3 end. 
+Numbers = [1, 2, 3, 4]. 
+lists:filter(Small, Numbers). 
+% returns [1,2] 

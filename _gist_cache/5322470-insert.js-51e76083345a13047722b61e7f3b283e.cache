@@ -1,0 +1,9 @@
+db.countries.insert({
+    "_id": "FR"
+    "name": "France"
+})
+
+db.people.insert({
+    "name": "Jean Pierre"
+    "country": "FR"
+})

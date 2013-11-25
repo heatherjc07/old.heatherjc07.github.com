@@ -1,0 +1,4 @@
+| ?-[a,b,c,d,e] = [_,_|[Head|_]].
+% Returns 
+% Head = c 
+% yes 

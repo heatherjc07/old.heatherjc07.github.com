@@ -1,0 +1,9 @@
+% Example of a comment
+1+ 7. % 8
+"string". % "string"
+
+21+ 2.5. 
+% 3.5. Example of basic type coercion
+
+6 + "string". 
+%** exception error: no match of right hand side value 6

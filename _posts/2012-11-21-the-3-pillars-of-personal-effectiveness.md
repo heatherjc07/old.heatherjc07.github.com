@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The 3 Pillars of Personal Effectiveness"
-description: ""
+description: "The 3 Pillars of Personal Effectiveness, Review"
 category: books
 tags: [kanban, soft skills, time management]
 ---
