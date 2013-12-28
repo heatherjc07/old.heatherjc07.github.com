@@ -56,7 +56,7 @@ $pop can be used to remove a value at the start or the end of an array. Supply 1
 
 $pushAll allows us to add multiple values provided as an array.
 
-![pushall]({{ ASSET_PATH }}/dinky/images/mongo-crud-update/pushall.png)
+![pushall]({{ ASSET_PATH }}/dinky/images/mongo-crud-update/pushAll.png)
 
 $pull allows us to remove a specific value.
 
