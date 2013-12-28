@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Installing Neo4J">
+
+    <title>Neo4j Day 1 (Installing and Exploring the Web GUI)</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages/about/index.html">Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Neo4j Day 1 (Installing and Exploring the Web GUI)</h1>
+
+  <p><em>My experience with Day 1 of <a href='http://www.neo4j.org/'>Neo4j</a> in <a href='http://pragprog.com/book/rwdata/seven-databases-in-seven-weeks'>Seven Database in Seven Weeks</a>.</em></p>
+
+<p>I know technically the book suggests you work through the databases in the order in which they appear in the book but I was keen to try Neo4j so it was the first non relational database I installed on my machine. Neo4j is a graph database which makes it ideal for highly interconnected data. Data is represented as nodes, with associated properties, and relationships which connect nodes, which can also have properties.The book describes it as &#8220;whiteboard friendly&#8221; which basically means if you can represent the data on a white board as lines and boxes, Neo4j is ideal for holding it. It is suitable for a range of data set sizes. It is small enough to embed or you can cluster and handle 10s of billions of nodes and relationships.</p>
+
+<h2 id='getting_set_up'>Getting Set Up</h2>
+
+<p>Neo4j comes in three flavours, community, advanced and enterprise. The advanced and enterprise editions come with additional monitoring, clustering and online backup features. All three versions are available to download for trialling but if you want to include Neo4j in a closed source solution you need to get a commercial license. More information on the different versions and licensing can be found <a href='http://www.neo4j.org/learn/licensing'>here</a>. Day three of the book covers enterprise functionality such as clustering and backups so you&#8217;ll need the enterprise version.</p>
+
+<p>On windows neo4j is available as a single click installation. If you need more detailed instructions or information on how to set it up as a Windows Service look <a href='http://docs.neo4j.org/chunked/stable/server-installation.html'>here</a>. Once you&#8217;ve got it installed you can start the database server by going into the bin directory of the install and typing <code>neo4j start</code></p>
+
+<p>Neo4J comes with a nice web interface which makes getting started very easy. Open up your browser and type in the following URL: <a href='http://localhost:7474/webadmin/'>http://localhost:7474/webadmin/</a>.</p>
+
+<p><img alt='console' src='/assets/themes//dinky/images/neo4j-setup/console.JPG' /></p>
+
+<h2 id='neo4j_web_interface'>Neo4j Web Interface</h2>
+
+<p>There are a number of tabs available that include: a dashboard view, a view to browse your nodes and relationships, a console which you can use to run commands and queries against your database, a view to manage your indexes and one to review your server properties. I&#8217;m going to focus on the data browser view in this post.</p>
+
+<h3 id='data_browser'>Data Browser</h3>
+
+<p>Click on the data browser tab and the following screen is displayed.</p>
+
+<p><img alt='data browser' src='/assets/themes//dinky/images/neo4j-setup/data_browser.JPG' /></p>
+
+<p>This screen allows you to quickly define nodes, relationships and their properties.In the screen shot above I&#8217;ve highlighted the search facility, node and relationship creation buttons and the button which allows you to switch to a graphical view. If you click on the &#8216;+ Node&#8217; button a new node will be created and you will be taken to the following view where you can define properties and relationships associated with that node. There is also the ability to delete it if you have created it by mistake.</p>
+
+<p><img alt='add node' src='/assets/themes//dinky/images/neo4j-setup/db_nodes_add.JPG' /></p>
+
+<p>Clicking on the &#8216;+ Relationship&#8217; button displays the following form to define a new relationship. You specify the from and to node ids and give it a type. The type field is free text and should be a descriptive label for the relationship. There is a handy drop down of types currently in use. This allows you to select the type rather than having to type it in again. Reducing typing errors.</p>
+
+<p><img alt='add relationship' src='/assets/themes//dinky/images/neo4j-setup/db_relationship_add.JPG' /></p>
+
+<p>You can search for nodes and relationships using the search form up at the top left of the page.In the example below I&#8217;ve typed in 1 which returns the information for Node 1. Existing properties are displayed with the ability to edit or delete and additional properties can be added using the &#8216;+ Add Property&#8217; button. The whole node can be removed using the &#8216;Delete&#8217; button. You can view existing relationships using the &#8216;Show Relationships&#8217; button.</p>
+
+<p><img alt='show relationships for a node' src='/assets/themes//dinky/images/neo4j-setup/db_nodes.JPG' /></p>
+
+<p>The screen below is displayed on clicking the &#8216;Show Relationships&#8217; button on the Node 1 screen. Each relationship is listed with it&#8217;s id, start and end node and label. Clicking on a particular relationship allows you to drill in a specific relationship.</p>
+
+<p><img alt='Relationships Associated with a Node' src='/assets/themes//dinky/images/neo4j-setup/db_relationships.JPG' /></p>
+
+<p>Drilling down into relationship 0 allows us to view properties associated with it, add new properties and delete it completely.</p>
+
+<p><img alt='Search Results for a Relationship' src='/assets/themes//dinky/images/neo4j-setup/db_relationships.JPG' /></p>
+
+<p>Finally lets look at the graphical view for node 2. You can get a really clear view of the node and all the nodes associated with it. All the relationships involving the node are displayed along with their labels.</p>
+
+<p><img alt='graphical view' src='/assets/themes//dinky/images/neo4j-setup/data_graph.JPG' /></p>
+
+<p>By default the only text displayed for each node is its id. This isn&#8217;t always particularly meaningful. My database is a graph of relations within my family with each node representing a family member. A more meaningful label for my nodes would include the person&#8217;s first name and surname. In order to define this I click the style button on the graphical view. A drop down of existing profiles is displayed and a button to create a new profile. On clicking to create a new profile the following screen is displayed. In the label field I&#8217;ve add the first name and surname properties using the syntax {prop.prop_name}.</p>
+
+<p><img alt='define custom profile' src='/assets/themes//dinky/images/neo4j-setup/db_profile.JPG' /></p>
+
+<p>That&#8217;s all for the data browser tab. My next couple of posts are going to look at CRUD operations using <a href='https://github.com/tinkerpop/gremlin/wiki'>Gremlin</a> and <a href='http://docs.neo4j.org/chunked/milestone/cypher-query-lang.html'>Cypher</a>.</p>
+
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Ruby Day 2: Seven Languages in Seven Weeks">
+
+    <title>Ruby Day 2</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages/about/index.html">Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Ruby Day 2</h1>
+
+  <p><em>My experience with day two of exploring Ruby through <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks' target='_blank'>Seven Languages in Seven Weeks</a>.</em></p>
+
+<p>Day 2 of Ruby covered classes, objects and collections. The key building blocks. In this post I&#8217;ll take a quick run through them.</p>
+
+<h2 id='functions'>Functions</h2>
+
+<p>Handily in Ruby you can define functions in the console without having to create a class. This allows you to test out things with minimum code. A ket thing to get into your head is that every function returns a value. This can be something you explicitly define using a return statement or the value of the last expression processed before exiting. In Ruby functions are objects and therefore can be passed as parameters to other functions which is a powerful feature.</p>
+
+<h2 id='collections'>Collections</h2>
+
+<p>Defining and accessing the Array elements feel very familiar for me having primarily programmed in Java but Ruby offers some nice extras like the ability to select elements starting at the end of the collection and select ranges. Trying to access an element which does not exist returns nil rather than an exception.</p>
+<script src='https://gist.github.com/5249879.js?file=array.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># array.rb
+
+subjects = ['art', 'maths', 'history']
+# returns [&quot;art&quot;, &quot;maths&quot;, &quot;history&quot;]
+
+subjects[2]
+# returns &quot;history&quot;
+
+subjects[10]
+#returns nil
+
+subjects[-2]
+#returns &quot;maths&quot;
+
+subjects[0..1]
+#returns ['art', 'maths']
+</code></pre>
+</noscript>
+<p>Arrays can contain a mixture of types e.g.</p>
+<script src='https://gist.github.com/5249879.js?file=array_mixture.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># array_mixture.rb
+
+mixture = [2,'pig',['little','petal']]</code></pre>
+</noscript>
+<p>Array has a very rich API which allows it to be used like other well known collections such as queues, stacks and sets. More about this later with some sample code.</p>
+
+<p>Nothing too new with hashes either.</p>
+<script src='https://gist.github.com/5249879.js?file=hash.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># hash.rb
+
+mixed = {:array =&gt; [1, 2, 3], :string =&gt; &quot;Hello!&quot;}
+
+stuff[:string]
+# returns &quot;Hello!&quot;</code></pre>
+</noscript>
+<h2 id='code_blocks'>Code Blocks</h2>
+
+<p>A useful feature of Ruby are code blocks which are functions without a name that can be used as a parameter to a function or method. The example below shows how succinctly you can express things. It iterates over the elementsand prints them out</p>
+<script src='https://gist.github.com/5249879.js?file=code_block.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># code_block.rb
+
+pets = ['dog and ', 'cats and', 'rabbits']
+pets.each {|a| puts a}
+
+# Returns
+# dogs and
+# cats and
+# rabbits
+</code></pre>
+</noscript>
+<p>In the following example we have a method which handles beginning and ending a transaction. We can put the code for a particular transaction within a code block and associate it with the method. When the yield is reached in the method the code block is executed.</p>
+<script src='https://gist.github.com/5249879.js?file=transaction.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># transaction.rb
+
+within_a_transaction do
+ things_that
+ must_happen_together
+end
+
+def within_a_transaction
+ begin_transaction
+ yield
+ end_transaction
+end
+</code></pre>
+</noscript>
+<h2 id='classes_and_inheritence'>Classes and Inheritence</h2>
+
+<p>Like Java Ruby has the concept of classes and objects. It supports single inheritence from a superclass. You can find the superclass using the superclass method. You can chain multiple calls to this method to find further up the inheritence tree.</p>
+<script src='https://gist.github.com/5249879.js?file=chain.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># chain.rb
+
+4.class.superclass</code></pre>
+</noscript>
+<h2 id='mixins'>Mixins</h2>
+
+<p>A Mixin is a way of describing behavior where you define common behaviors and constants in a module and then add them to classes by including the module. They play a similar role to interfaces in Java. In the example below the module includes methods to create a file and write an object to the file using its to string method. The behavior defined in this module could apply to lots of different types of objects. You can see the module has no to_s method itself. It will use the one in the class. Any subclass of the class will have the capabilities defined in the mixin without needing to know about the mixin&#8217;s implementation. i.e. Single inheritence defines essence, modules define additional capabilties.</p>
+<script src='https://gist.github.com/5249879.js?file=mixin.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># mixin.rb
+
+a.member?(2) #false module ToFile
+ def filename
+  &quot;object_#{self.object_id}.txt&quot;
+ end
+
+ def to_f
+   File.open(filename, 'w') {|f| f.write(to_s)}
+ end
+end
+
+class Person
+ include ToFile
+ attr_accessor :name
+ def initialize(name)
+  @name = name
+ end
+
+ def to_s
+  name
+ end 
+end</code></pre>
+</noscript>
+<p>Other mixins include enumerable and comparable.A class wanting to be enumerable must implement each, and a class wanting to be comparable must implement &lt;=&gt;.Enumerable and comparable provide many convenience methods for collections.</p>
+<script src='https://gist.github.com/5249879.js?file=convenience.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># convenience.rb
+
+a = [5, 3, 4, 1]
+a.sort #[1, 3, 4, 5]
+a.any? {|i| i &amp;gt; 4} #true
+a.all? {|i| i &amp;gt; 4} #false
+a.collect {|i| i * 2} #[10, 6, 8, 2]
+a.select {|i| i % 2 == 0 } #[4]
+a.max # 5
+a.member?(2) #false 
+</code></pre>
+</noscript>
+<h2 id='exercises'>Exercises</h2>
+
+<h3 id='find'>Find</h3>
+
+<p>First we had to look at accessing a file with and without a code block. When you use a code block Ruby closes the file for you when it is finished without you needing to explicitly ask it to. It guarantees that it will close the file even if an exception occurs.</p>
+<script src='https://gist.github.com/5249879.js?file=ex1.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># ex1.rb
+
+file = File.open(&quot;example.txt&quot;, &quot;w&quot;)
+file.puts &quot;accessing without a code block&quot;
+file.close
+
+File.open(&quot;example2.txt&quot;, &quot;w&quot;) do |f| 
+  f &lt;&lt; 'accessing with a block' 
+end 
+</code></pre>
+</noscript>
+<p>The next task was translating a hash to an array which is very simple because the Hash API has a to_a method which does this.</p>
+<script src='https://gist.github.com/5249879.js?file=ex2.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># ex2.rb
+
+h = { &quot;dog&quot; =&amp;gt; &quot;woof&quot;, 
+  &quot;cat&quot; =&amp;gt; &quot;meow&quot;, &quot;pig&quot; =&amp;gt; &quot;oink&quot;, &quot;cow&quot; =&amp;gt; &quot;moo&quot;}
+a = h.to_a
+</code></pre>
+</noscript>
+<p>Next we had to translate the array back to a hash.</p>
+<script src='https://gist.github.com/5249879.js?file=ex3.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># ex3.rb
+
+animal_array = [[&quot;dog&quot;,&quot;woof&quot;],[&quot;cat&quot;,&quot;meow&quot;],[&quot;pig&quot;,&quot;oink&quot;],[&quot;cow&quot;,&quot;moo&quot;]]
+animal_hash = Hash[animal_array]
+</code></pre>
+</noscript>
+<p>Then we had to iterate through a hash. I used the each method.</p>
+<script src='https://gist.github.com/5249879.js?file=ex4.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># ex4.rb
+
+h.each {|key, value| puts &quot;#{key} makes a #{value} noise&quot; }</code></pre>
+</noscript>
+<p>Finally some examples of using an Array like other common data structures.</p>
+<script src='https://gist.github.com/5249879.js?file=ex5.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># ex5.rb
+
+example = [1,2,3,4]
+#queue
+p &quot;Using an array as a queue&quot;
+p &quot;unshift&quot;
+p example.unshift(0)
+p &quot;shift&quot;
+p example.shift
+#stack
+p &quot;Using an array as a stack&quot;
+p &quot;push&quot;
+p example.push(5)
+p &quot;pop&quot;
+p example.pop
+#set
+p &quot;Using an array as a set&quot;
+orig = [1,1,1,2,3,3,4,5]
+p orig
+p orig.uniq</code></pre>
+</noscript>
+<h3 id='do'>Do</h3>
+
+<p>Print the contents of an array of sixteen numbers, four numbers at a time, using just each. Now, do the same with each_slice in Enumerable.</p>
+<script src='https://gist.github.com/5249879.js?file=array_slice.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># array_slice.rb
+
+a = (1..16).to_a
+
+(0...4).each {|i| puts a[4*i...4*(i+1)].join(',') }
+
+a.each_slice(4){|s| p s}</code></pre>
+</noscript>
+<p>The Tree class was interesting, but it did not allow you to specify a new tree with a clean user interface. Let the initializer accept a nested structure of hashes. You should be able to specify a tree like this: {&#8216;grandpa&#8217; =&#62; { &#8216;dad&#8217; =&#62; {&#8216;child 1&#8217; =&#62; {}, &#8216;child 2&#8217; =&#62; {} }, &#8216;uncle&#8217; =&#62; {&#8216;child 3&#8217; =&#62; {}, &#8216;child 4&#8217; =&#62; {} } } }.</p>
+<script src='https://gist.github.com/5249879.js?file=tree.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># tree.rb
+
+#The Tree class was interesting, but it did not allow you to specify a new
+#tree with a clean user interface. Let the initializer accept a nested
+#structure of hashes. You should be able to specify a tree like this:
+#{'grandpa' =&gt; { 'dad' =&gt; {'child 1' =&gt; {}, 'child 2' =&gt; {} }, 'uncle' =&gt; {'child 3' =&gt; {},
+#'child 4' =&gt; {} } } }.
+
+class Tree
+  attr_accessor :children, :node_name
+
+  def initialize(tree_data)
+    @node_name, child_nodes = tree_data.first
+    @children = []
+    child_nodes.each{|key, value| @children &lt;&lt; Tree.new({key =&gt; value})}
+  end
+
+  def visit_all(&amp;block)
+    visit &amp;block
+    children.each {|c| c.visit_all &amp;block}
+  end
+
+  def visit(&amp;block)
+    block.call self
+  end
+end
+
+tree_test = Tree.new({'grandpa' =&gt; { 'dad' =&gt; {'child 1' =&gt; {}, 'child 2' =&gt; {} }, 'uncle' =&gt; {'child 3' =&gt; {},'child 4' =&gt; {} } } })
+
+puts &quot;Visiting a node&quot;
+tree_test.visit {|node| puts node.node_name}
+puts
+puts &quot;visiting entire tree&quot;
+tree_test.visit_all {|node| puts node.node_name}</code></pre>
+</noscript>
+<p>Write a simple grep that will print the lines of a file having any occurrences of a phrase anywhere in that line. You will need to do a simple regular expression match and read lines from a file.</p>
+<script src='https://gist.github.com/5249879.js?file=file_read.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># file_read.rb
+
+#Write a simple grep that will print the lines of a file having any occurrences
+#of a phrase anywhere in that line. You will need to do a simple
+#regular expression match and read lines from a file. (This is surprisingly
+#simple in Ruby.) If you want, include line numbers.
+
+def find_matching_lines(file_name,pattern)
+  regexp = Regexp.new(pattern)
+  File.foreach(file_name).with_index { |line,line_num|
+    puts &quot;#{line_num}: #{line}&quot; if regexp =~ line
+  }
+end
+
+find_matching_lines(&quot;sample.txt&quot;,&quot;programming&quot;)</code></pre>
+</noscript>
+<p>Check out my code at <a href='https://github.com/heatherjc07/seven_languages_in_seven_days/tree/master/Ruby/Day2' target='_blank'>github</a></p>
+
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

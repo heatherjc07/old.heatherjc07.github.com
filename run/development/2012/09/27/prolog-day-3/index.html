@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Prolog Day 3: Seven Languages in Seven Weeks">
+
+    <title>Prolog Day 3</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages/about/index.html">Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Prolog Day 3</h1>
+
+  <p><em>My experience with day three of exploring Prolog through <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks'>Seven Languages in Seven Weeks</a>.</em></p>
+
+<p>I&#8217;m feeling a mixture of excitement and scared entering day 3 of Prolog. Today I&#8217;m going to see how Prolog can be used to solve problems like Sudoku which is going to be really interesting but I know it&#8217;s going to be a lot to get my head around.</p>
+
+<h2 id='solving_sudoku'>Solving Sudoku</h2>
+
+<p>I&#8217;m sure you&#8217;ve seen a Suduko puzzle before. It&#8217;s a grid with rows, columns and boxes. Some spaces are filled in and some are blank and it&#8217;s your job to fit the numbers so that each row, column and square has one each of all the digits.</p>
+
+<p>The code below shows how you can use Prolog to approach solving it. Check out the comments for an explanation of how it works.</p>
+<script src='https://gist.github.com/5375898.js?file=sudoku.pro'> </script><noscript>
+  <pre class='gist-no-script'><code># sudoku.pro
+
+:- use_module(library(clpfd)).
+
+valid([]).
+
+%checks all values are different
+%in the sudoku rule we pass it a 
+%list with the rows, columns and squares
+valid([Head|Tail]) :-
+all_different(Head), % in the book, this is 'fd_all_different'
+valid(Tail).
+
+sudoku(Puzzle, Solution) :-
+Solution = Puzzle,
+% unify puzzle with 16 variables
+Puzzle = [S11, S12, S13, S14,
+S21, S22, S23, S24,
+S31, S32, S33, S34,
+S41, S42, S43, S44],
+%limit value in puzzle to between 1 and 4
+Puzzle ins 1..4, % in the book, this is 'fd_domain'
+%define rows, cols and squares
+Row1 = [S11, S12, S13, S14],
+Row2 = [S21, S22, S23, S24],
+Row3 = [S31, S32, S33, S34],
+Row4 = [S41, S42, S43, S44],
+Col1 = [S11, S21, S31, S41],
+Col2 = [S12, S22, S32, S42],
+Col3 = [S13, S23, S33, S43],
+Col4 = [S14, S24, S34, S44],
+Square1 = [S11, S12, S21, S22],
+Square2 = [S13, S14, S23, S24],
+Square3 = [S31, S32, S41, S42],
+Square4 = [S33, S34, S43, S44],
+valid([Row1, Row2, Row3, Row4,
+Col1, Col2, Col3, Col4,
+Square1, Square2, Square3, Square4]),
+pretty_print([Row1, Row2, Row3, Row4]).
+
+% print each row on a new line
+pretty_print([Head | Tail]) :- print(Head), 
+  print('\n'), pretty_print(Tail).
+
+% define board in file
+problem(1,[_, _, 2, 3,
+_, _, _, _,
+_, _, _, _,
+3, 4, _, _]
+).
+
+% can test with:
+% ?- problem(1, Board), sudoku(Board, Solution).</code></pre>
+</noscript>
+<h2 id='solving_queens'>Solving Queens</h2>
+
+<p>The rules:</p>
+
+<ul>
+<li>A board has eight queens.</li>
+
+<li>Each queen has a row from 1–8 and a column from 1–8.</li>
+
+<li>No two queens can share the same row.</li>
+
+<li>No two queens can share the same column.</li>
+
+<li>No two queens can share the same diagonal (southwest to northeast).</li>
+
+<li>No two queens can share the same diagonal (northwest to southeast).</li>
+</ul>
+<script src='https://gist.github.com/5375898.js?file=queens.pro'> </script><noscript>
+  <pre class='gist-no-script'><code># queens.pro
+
+?- [library(clpfd)].
+
+%check row and col value between 1 and 8
+valid_queen((Row, Col)) :- member(Col, [1,2,3,4,5,6,7,8]).
+
+valid_board([]).
+valid_board([Head|Tail]) :- valid_queen(Head), valid_board(Tail).
+
+cols([], []).
+cols([(_, Col)|QueensTail], [Col|ColsTail]) :-
+  cols(QueensTail, ColsTail).
+
+diags1([], []).
+diags1([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+  Diagonal is Col - Row,
+  diags1(QueensTail, DiagonalsTail).
+
+diags2([], []).
+diags2([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+  Diagonal is Col + Row,
+  diags2(QueensTail, DiagonalsTail).
+
+%represent board
+eight_queens(Board) :-
+  Board = [(1, _), (2, _), (3, _), 
+   (4, _), (5, _), (6, _), (7, _), (8, _)],
+  valid_board(Board),
+
+  cols(Board, Cols),
+  diags1(Board, Diags1),
+  diags2(Board, Diags2),
+
+  all_different(Cols), % in the book, this is 'fd_all_different'
+  all_different(Diags1), % in the book, this is 'fd_all_different'
+  all_different(Diags2). % in the book, this is 'fd_all_different'
+
+% can test with:
+% ?- eight_queens(Board).</code></pre>
+</noscript>
+<h2 id='find'>Find</h2>
+
+<p>Prolog has some input/output features as well. Find print predicates that print out variables. Find a way to use the print predicates to print only successful solutions. How do they work?</p>
+
+<h2 id='do'>Do</h2>
+
+<p><em>Modify the Sudoku solver to work on six-by-six puzzles (squares are 3x2) and 9x9 puzzles. Make the Sudoku solver print prettier solutions.</em></p>
+
+<p>Same idea as the example above. You can check out my code at <a href='https://github.com/heatherjc07/seven_languages_in_seven_days/tree/master/Prolog/Day3'>github</a>. I haven&#8217;t the time at the moment but I&#8217;ve seen some really nice examples of people creating general solutions that can handle a range of board sizes. Something to come back to when I get some spare time!</p>
+
+<p>If you’re a puzzle enthusiast, you can get lost in Prolog. If you want to dive deeper into the puzzles I’ve presented, Eight Queens is a good place to start.</p>
+
+<p>Solve the Eight Queens problem by taking a list of queens. Rather than a tuple, represent each queen with an integer, from 1–8. Get the row of a queen by its position in the list and the column by the value in the list.</p>
+
+<p>Check out my code at <a href='https://github.com/heatherjc07/seven_languages_in_seven_days/tree/master/Prolog/Day3'>github</a></p>
+
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

@@ -1,4 +1,4 @@
 mixed = {:array => [1, 2, 3], :string => "Hello!"}
 
-stuff[:string]
+mixed[:string]
 # returns "Hello!"

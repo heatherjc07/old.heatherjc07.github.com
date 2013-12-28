@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Io Day 1: Seven Languages in Seven Weeks">
+
+    <title>Io Day 1</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages/about/index.html">Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Io Day 1</h1>
+
+  <p><em>My experience with day one of exploring Io through <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks' target='_blank'>Seven Languages in Seven Weeks.</a></em></p>
+
+<p>The next language up is Io a prototype language created by Steve Dekorte in 2002. He wrote it as an exercise to get an understanding of how programming languages work. I&#8217;ve used Lua and JavaScript which are also prototype languages. I&#8217;m ashamed to say in the past I&#8217;ve used these languages without really thinking about how they behave or are structured so I think the next few days will help me to take more of an interest in the theory behind them.</p>
+
+<p>Io is used as an embeddable language with a tiny VM and rich concurrency support. It has a very simple low level syntax. This can make it harder to understand what is going on right away but on the plus side it means there aren&#8217;t special rules or exceptions to learn.</p>
+
+<p>As it is a prototype language there is no concept of classes instead every object is a clone of an existing object. The clones are called protoypes.</p>
+<script src='https://gist.github.com/5267160.js?file=Vehicle.io'> </script><noscript>
+  <pre class='gist-no-script'><code># Vehicle.io
+
+Vehicle := Object clone</code></pre>
+</noscript>
+<p>Each Object has slots which you can refer to with a key. In the example below we&#8217;ve created a slot with the key &#8220;description&#8221; and value &#8220;Takes you from A to B&#8221;. You get a slots value by sending a message</p>
+<script src='https://gist.github.com/5267160.js?file=description.io'> </script><noscript>
+  <pre class='gist-no-script'><code># description.io
+
+Vehicle description := &quot;Takes you from A to B&quot;
+Vehicle description
+//Returns &quot;Takes you from A to B&quot;</code></pre>
+</noscript>
+<p>Io provides a method to view the name of all the slots associated with an Object.</p>
+<script src='https://gist.github.com/5267160.js?file=slots.io'> </script><noscript>
+  <pre class='gist-no-script'><code># slots.io
+
+Vehicle slotNames
+//Returns (&quot;type&quot;, &quot;description&quot;)</code></pre>
+</noscript>
+<p>Every object supports type. If the object begins with an uppercase letter its type slot is set to its name. If it doesn&#8217;t any call for type will invoke its parents&#8217; type slot i.e. it is not a type. This is in general how missing slots are handling if an Object doesn&#8217;t have a particular slot Io calls its parent.</p>
+
+<p>It is very simple to define a method.</p>
+<script src='https://gist.github.com/5267160.js?file=method.io'> </script><noscript>
+  <pre class='gist-no-script'><code># method.io
+
+Car drive := method(&quot;Vroom&quot; println) 
+ferrari := Car clone 
+ferrari drive 
+//Returns Vroom</code></pre>
+</noscript>
+<p>You can retrieve a slot using getSlot method passing in a key.</p>
+<script src='https://gist.github.com/5267160.js?file=getSlot.io'> </script><noscript>
+  <pre class='gist-no-script'><code># getSlot.io
+
+ferrari getSlot(&quot;drive&quot;) 
+// Returns method (&quot;Vroom&quot; println)</code></pre>
+</noscript>
+<p>Io has collections which include lists and maps. List is an ordered collection of objects of any type. List has convenience methods to allow it to act as other data types e.g. to act as a stack and handle mathematical problems e.g. average, sum</p>
+<script src='https://gist.github.com/5267160.js?file=list.io'> </script><noscript>
+  <pre class='gist-no-script'><code># list.io
+
+pets := list(&quot;dog&quot;, &quot;cat&quot;) // returns list(&quot;dog&quot;, &quot;cat&quot;)
+pets size // returns 2
+pets append(&quot;rabbit&quot;) //returns list(&quot;dog&quot;, &quot;cat&quot;, &quot;rabbit&quot;)
+list(1, 2, 3, 4)
+list(1, 2, 3, 4) average //returns 2.5
+list(1, 2, 3, 4) sum //returns 10
+list(1, 2, 3) pop // returns 3</code></pre>
+</noscript>
+<p>Map holds key-value pairs.</p>
+<script src='https://gist.github.com/5267160.js?file=map.io'> </script><noscript>
+  <pre class='gist-no-script'><code># map.io
+
+horse := Map clone
+horse atPut(&quot;home&quot;, &quot;stable&quot;)
+horse at(&quot;home&quot;) //returns home = &quot;stable&quot;
+horse atPut(&quot;food&quot;, &quot;hay&quot;) //returns food = &quot;hay&quot;
+horse asList //returns list(list(&quot;food&quot;, &quot;hay&quot;), list(&quot;home&quot;, &quot;stable&quot;))
+horse keys //returns list(&quot;food&quot;, &quot;home&quot;) 
+horse size //returns 2
+
+
+
+
+
+</code></pre>
+</noscript>
+<p>To create a singleton you just need to override the clone method</p>
+<script src='https://gist.github.com/5267160.js?file=singleton.io'> </script><noscript>
+  <pre class='gist-no-script'><code># singleton.io
+
+Madonna := Object clone
+Madonna clone := Madonna</code></pre>
+</noscript>
+<h2 id='self_study'>Self Study</h2>
+
+<h3 id='find'>Find</h3>
+
+<p><em>Some Io example problems</em><br /> <a href='http://iolanguage.org/scm/io/docs/IoTutorial.html' target='_blank'>iolanguage.org</a></p>
+
+<p><em>An Io community that will answer questions</em><br /> <a href='http://tech.groups.yahoo.com/group/iolanguage/' target='_blank'>yahoo</a><br /> <a href='http://stackoverflow.com/questions/tagged/iolanguage' target='_blank'>stackoverflow</a></p>
+
+<p><em>A style guide with Io idioms</em><br /> <a href='http://en.wikibooks.org/wiki/Io_Programming/Io_Style_Guide' target='_blank'>Io Style Guide</a></p>
+
+<h3 id='answer'>Answer</h3>
+
+<p><em>Evaluate 1 + 1 and then 1 + &#8220;one&#8221;. Is Io strongly typed or weakly typed? Support your answer with code</em></p>
+<script src='https://gist.github.com/5267160.js?file=strong.io'> </script><noscript>
+  <pre class='gist-no-script'><code># strong.io
+
+ (1 + 1) println // 2
+//1 + &quot;one&quot; println 
+// Exception: argument 0 to method '+' must be a Number, 
+// not a 'Sequence'
+//Therefore Strongly Typed</code></pre>
+</noscript>
+<p><em>Is 0 true or false? What about the empty string? Is nil true or false? Support your answer with code.</em></p>
+<script src='https://gist.github.com/5267160.js?file=zero.io'> </script><noscript>
+  <pre class='gist-no-script'><code># zero.io
+
+if(0) println    // true
+if(&quot;&quot;) println   //true
+if(nil) println  //false</code></pre>
+</noscript>
+<p><em>How can you tell what slots a prototype supports?</em></p>
+<script src='https://gist.github.com/5267160.js?file=slot_support.io'> </script><noscript>
+  <pre class='gist-no-script'><code># slot_support.io
+
+Vehicle := Object clone
+Vehicle description := &quot;Something to take you places&quot;
+Vehicle slotNames println</code></pre>
+</noscript>
+<p><em>What is the difference between = (equals), := (colon equals), and ::= (colon colon equals)? When would you use each one?</em></p>
+<script src='https://gist.github.com/5267160.js?file=equals.io'> </script><noscript>
+  <pre class='gist-no-script'><code># equals.io
+
+::=  //Creates slot, creates setter, assigns value 
+:=   //Creates slot, assigns value 
+=    //Assigns value to slot if it exists, otherwise raises exception </code></pre>
+</noscript>
+<h3 id='do'>Do</h3>
+
+<p><em>Run an Io program from a file.</em></p>
+<script src='https://gist.github.com/5267160.js?file=run.io'> </script><noscript>
+  <pre class='gist-no-script'><code># run.io
+
+io answer.io</code></pre>
+</noscript>
+<p><em>Execute the code in a slot given its name.</em></p>
+<script src='https://gist.github.com/5267160.js?file=baby.io'> </script><noscript>
+  <pre class='gist-no-script'><code># baby.io
+
+Baby := Object clone 
+Baby description := &quot;A little person&quot; 
+Baby cry := method(&quot;Wahh&quot; println) 
+Baby slotNames println 
+// Returns list(cry, description, type)
+Baby cry
+// Returns &quot;Wahh&quot;</code></pre>
+</noscript>
+<p>Check out my code at <a href='https://github.com/heatherjc07/seven_languages_in_seven_days/tree/master/Io/Day1' target='_blank'>github</a></p>
+
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

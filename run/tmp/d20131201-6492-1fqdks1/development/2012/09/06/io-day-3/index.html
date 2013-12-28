@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Io Day 3: Seven Languages in Seven Weeks">
+
+    <title>Io Day 3</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages/about/index.html">Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Io Day 3</h1>
+
+  <p><em>My experience with day three of exploring Io through <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks' target='_blank'>Seven Languages in Seven Weeks.</a></em></p>
+
+<p>The final day of Io ramps things up and looks at how it supports metaprogramming and concurrency.</p>
+
+<h2 id='creating_a_dsl'>Creating a DSL</h2>
+
+<p>The first example in the book demonstratea how powerful Io can be in terms of helping us to create a DSL by allowing us to redefine operators, symbols etc.</p>
+
+<p>Say we had a list of phone numbers represented in the following format</p>
+<script src='https://gist.github.com/5270311.js?file=phone_list.io'> </script><noscript>
+  <pre class='gist-no-script'><code># phone_list.io
+
+{
+   &quot;Jane Smith&quot;: &quot;07891234112&quot;,
+   &quot;Tony Walsh&quot;: &quot;07791234333&quot;
+}
+</code></pre>
+</noscript>
+<p>We could use the following code to generate a hash from it.</p>
+<script src='https://gist.github.com/5270311.js?file=generate_hash.io'> </script><noscript>
+  <pre class='gist-no-script'><code># generate_hash.io
+
+OperatorTable addAssignOperator(&quot;:&quot;, &quot;atPutNumber&quot;) 
+
+curlyBrackets := method(
+  r := Map clone
+  call message arguments foreach(arg, 
+    r doMessage(arg)
+  )
+  r
+ )
+
+ Map atPutNumber := method(
+   self atPut(
+    call evalArgAt(0) asMutable
+    removePrefix(&quot;\&quot;&quot;) removeSuffix(&quot;\&quot;&quot;),
+    call evalArgAt(1))
+)
+
+ s := File with(&quot;phonebook.txt&quot;) openForReading contents
+ phoneNumbers := doString(s)
+ phoneNumbers keys println
+ phoneNumbers values println</code></pre>
+</noscript>
+<p>Io allows us to define our own operators so we&#8217;ve added an operator &#8221;:&#8221; which when encountered is parsed as the atPutNumber method. The first argument will be treated as the hash key, the second its value. We define a CurlyBrackets method which is called when the parser encounters {}. It creates an empty map and then iterates through the numbers in the list. For each name and phone number it calls r doMessage(arg). So for the first pairing it will execute</p>
+<code>"Jane Smith": "07891234112"</code>
+<p>The : is then translated as atPutNumber</p>
+<code>r atPutNumber("Jane Smith", "07891234112")</code>
+<p>The atPutNumber take the name and strips the quotes and adds the phone number to the hash using the name as the key.</p>
+
+<h2 id='forward_message'>Forward Message</h2>
+
+<p>Next the book looks at Io&#8217;s forward message which is similar to Ruby&#8217;s method_missing. The example shows how you can represent XML data as Io code.</p>
+<script src='https://gist.github.com/5270311.js?file=xml.io'> </script><noscript>
+  <pre class='gist-no-script'><code># xml.io
+
+Builder := Object clone
+
+Builder forward := method(
+  writeln(&quot;&lt;&quot;, call message name, &quot;&gt;&quot;)
+  call message arguments foreach(
+    arg
+    content := self doMessage(arg);
+    if(content type == &quot;Sequence&quot;,
+      writeln(content)))
+      writeln(&quot;&lt;/&quot;, call message name, &quot;&gt;&quot;))
+
+Builder ul( li(&quot;Io&quot;),li(&quot;Lua&quot;),li(&quot;JavaScript&quot;))
+
+/*
+Returns 
+&lt;ul&gt;
+&lt;li&gt;
+Io
+&lt;/li&gt;
+&lt;li&gt;
+Lua
+&lt;/li&gt;
+&lt;li&gt;
+JavaScript
+&lt;/li&gt;
+&lt;/ul&gt;
+*/</code></pre>
+</noscript>
+<p>In the example we&#8217;ve overridden the forward method. When an unrecognised method is received our method gets called. It creates an open tag with the method name. It then looks at the arguments and they are string it prints it without quotes. If it is another method call it creates an open tag for it and repeats the process. Finally it prints a closing tag.</p>
+
+<h2 id='concurrency'>Concurrency</h2>
+
+<p>One of the major positives for Io is its great concurrency libraries.</p>
+<script src='https://gist.github.com/5270311.js?file=concurrency.io'> </script><noscript>
+  <pre class='gist-no-script'><code># concurrency.io
+
+vizzini := Object clone
+vizzini talk := method(&quot;Fezzik, are there rocks ahead?&quot; println 
+        yield &quot;No more Rhymes now, I mean it&quot; println yield)
+fezzik := Object clone
+fezzik rhyme := method(yield &quot;If there are, we'll all be dead.&quot; 
+       println yield &quot;Anyone want a peanut?&quot; println)
+
+vizzini @@talk; fezzik @@rhyme
+Coroutine currentCoroutine pause
+
+/*
+Returns 
+Fezzik, are there rocks ahead?
+If there are, we'll all be dead.
+No more Rhymes now, I mean it
+If there are, we'll all be dead
+Scheduler: nothing left to resume so we are exiting
+*/
+</code></pre>
+</noscript>
+<p>The @ and @@ fire a message asynchronously. Yield voluntarily suspends a process and transfers to another process. The talk and rhyme methods run concurrently yielding to each other at specified intervals. This is useful for solutions requiring cooperative multitasking.</p>
+
+<h2 id='futures'>Futures</h2>
+
+<p>If you fire a message asynchronously using @ it returns a result object called a future. This is the value of the last statement returned. If you ask for the value before it is available the process blocks until it is ready. Futures provide automatic deadlock detection and raise an exception.</p>
+
+<h2 id='do'>Do:</h2>
+
+<p><em>Enhance the XML program to add spaces to show the indentation structure.</em></p>
+<script src='https://gist.github.com/5270311.js?file=indent.io'> </script><noscript>
+  <pre class='gist-no-script'><code># indent.io
+
+//enhanced to indent tags
+
+Builder := Object clone
+
+curlyBrackets := method(
+  r := List clone;  
+  call message arguments foreach(arg,    
+    r append(arg)) 
+)
+
+indent := &quot;&quot;
+Builder forward := method(
+  writeln(indent,&quot;&lt;&quot;, call message name, &quot;&gt;&quot;)
+  indent = indent .. &quot;  &quot;
+  call message arguments foreach(
+    arg,
+    content := self doMessage(arg);
+    if(content type == &quot;Sequence&quot;, writeln(indent,content)))
+    indent = indent exclusiveSlice(2)
+  writeln(indent,&quot;&lt;/&quot;, call message name, &quot;&gt;&quot;))
+Builder ul(
+  li(&quot;Io&quot;),
+  li(&quot;Lua&quot;),
+  li(&quot;JavaScript&quot;))
+  
+  days := {&quot;Monday&quot;,&quot;Tuesday&quot;,&quot;Wednesday&quot;};
+  days println();</code></pre>
+</noscript>
+<p><em>Enhance the XML program to handle attributes: if the first argument is a map (use the curly brackets syntax), add attributes to the XML program. For example: book({&#8220;author&#8221;: &#8220;Tate&#8221;}&#8230;) would print <code>&lt;book author=&quot;Tate&quot;&gt;</code></em></p>
+<script src='https://gist.github.com/5270311.js?file=attribute.io'> </script><noscript>
+  <pre class='gist-no-script'><code># attribute.io
+
+//enhanced to print attributes
+
+curlyBrackets := method(
+  r := Map clone
+  call message arguments foreach(arg,
+   r doMessage(arg)
+  )
+ r
+)
+
+OperatorTable addAssignOperator(&quot;:&quot;, &quot;atPutAttr&quot;)
+
+Map atPutAttr := method(
+  self atPut(
+  call evalArgAt(0) asMutable removePrefix(&quot;\&quot;&quot;) removeSuffix(&quot;\&quot;&quot;),
+  call evalArgAt(1))
+)
+
+Map buildAttributes := method(  
+ attr_str := &quot;&quot;
+ self foreach(attr, val,  attr_str = attr_str .. &quot; &quot; .. attr .. &quot;=\&quot;&quot; .. val .. &quot;\&quot;&quot;    )
+ return attr_str
+)
+
+Builder := Object clone
+
+indent := &quot;&quot;
+
+Builder forward := method(
+  arguments := call message arguments
+  attrs := &quot;&quot;        
+  if(arguments size &gt; 0 and arguments first name == &quot;curlyBrackets&quot;,      attrs = doMessage(arguments first) buildAttributes)
+  
+  writeln(indent,&quot;&lt;&quot;, call message name, attrs, &quot;&gt;&quot;)
+  indent = indent .. &quot;  &quot;
+  arguments foreach(
+    arg,
+    content := self doMessage(arg);
+    if(content type == &quot;Sequence&quot;, writeln(indent,content)))
+    indent = indent exclusiveSlice(2)
+  writeln(indent,&quot;&lt;/&quot;, call message name, &quot;&gt;&quot;))
+
+doFile(&quot;BuilderNewTest.io&quot;)
+</code></pre>
+</noscript>
+<p>Check out my code at <a href='https://github.com/heatherjc07/seven_languages_in_seven_days/tree/master/Io/Day3' target='_blank'>github</a></p>
+
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+
