@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Seven Databases in Seven Weeks">
+
+    <title>NoSQL</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a class="button" href="/archive.html" >Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/categories.html" >Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages/about/index.html" >Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages.html" >Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/tags.html" >Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>NoSQL</h1>
+
+  <p>A big buzz word at the moment is <a href='http://en.wikipedia.org/wiki/NoSQL'>NoSQL</a>. It&#8217;s a grouping for databases which don&#8217;t adher to the relational database management system model. In the past you&#8217;ve probably used a range of different RDBMS like Sybase, Oracle and Microsoft SQL Server, and forced your data to fit in the relational model. NoSQL doesn&#8217;t mean no more relational databases. Instead it means there are a range of different models and database options to meet your particular domain needs.</p>
+
+<p>It also has brought about the term <a href='http://martinfowler.com/bliki/PolyglotPersistence.html'>polyglot  persistence</a>. The idea that you don&#8217;t have to use one database to meet your data needs instead you can use a combination of different databases, which fit into different database models, to meet your data needs.</p>
+
+<p>Following on from the fun I had working my way through Bruce Tate&#8217;s <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks'>Seven Languages in Seven Weeks</a> (highly recommended) I&#8217;ve decided to take a look at <a href='http://pragprog.com/book/rwdata/seven-databases-in-seven-weeks'>Seven Databases in Seven Weeks</a> by Eric Redmond and Jim R. Wilson. This book follows the same format, taking a long weekend, i.e. 3 days or in my case a week&#8217;s worth of evenings after my toddler has gone to bed, to learn about a particular database. The book is designed to be read in order, building your understanding of common NoSQL concepts and covers <a href='http://www.postgresql.org/'>PostgreSQL</a> (Relational Database), <a href='http://docs.basho.com/riak/latest/'>Riak</a> and <a href='http://redis.io/'>Redis</a> (Key-Value Database),<a href='http://hbase.apache.org/'>Apache HBase</a> (Columnar Database), <a href='http://www.mongodb.org/'>MongoDB</a> and <a href='http://couchdb.apache.org/'>Apache CouchDB</a> (Document Database) and <a href='http://www.neo4j.org/'>Neo4J</a> (Graph Database). My next post will give you a quick intro to the databases and their models. The book expects the reader to install the databases themselves and be up for doing some exploration on their own.Speaking from my experience with <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks'>Seven Languages in Seven Weeks</a> I found in addition to learning about all the different languages it gave me lots of ideas for how to approach learning and evaluating a new language. Hopefully this book will do the same for databases and other tools.</p>
+
+<p>I&#8217;m looking forwards to getting a feel for the different databases and database models, learning what they are like to interact with, what problems they are suited to and their strengths and compromises.I&#8217;m also interested in seeing how they differ from the RDBMS I&#8217;m so used to e.g. how their schema differs (different data structure or even schemaless), their approach to scaling (some scale horizontally), replication and availability and how you query/access the data they store.</p>
+
+<p>I&#8217;m going to document my experiences on this blog.</p>
+  If you enjoyed this post, please
+<a href="https://twitter.com/intent/tweet?url=http://heatherjcampbell.com/books/2012/12/21/nosql&text=NoSQL &via=hcampbell07" 
+   target="_blank">
+  share it</a> 
+or 
+<a href="https://twitter.com/hcampbell07">
+  follow me on Twitter</a>
+<div id="page-navigation">
+        <div class="clear">&nbsp;</div>
+        <div class="left">
+        
+                <a href="/books/2012/11/21/the-3-pillars-of-personal-effectiveness" title="Previous Post:
+The 3 Pillars of Personal Effectiveness">&laquo; The 3 Pillars of Personal Effectiveness</a>
+        
+        </div>
+
+        <div class="right">
+        
+                <a href="/development/2013/01/04/sdisw-databases-and-database-models" title="next Post:
+SDISW: Databases and Database Models">SDISW: Databases and Database Models &raquo; </a>
+        
+        </div>
+        <div class="clear">&nbsp;</div>
+</div> 
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Io Day 2: Seven Languages in Seven Weeks">
+
+    <title>Io Day 2</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a class="button" href="/archive.html" >Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/categories.html" >Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages/about/index.html" >Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages.html" >Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/tags.html" >Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Io Day 2</h1>
+
+  <p><em>My experience with day two of exploring Io through <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks' target='_blank'>Seven Languages in Seven Weeks.</a></em></p>
+
+<p>Day 2 of Io follows a pretty similar format to Ruby day 2 looking at conditional loops, operators and reflection.</p>
+
+<h2 id='conditional_loops'>Conditional Loops</h2>
+
+<p>Conditional Loops in Io are not pretty to read. It&#8217;s basic syntax means it is easy to remember how to write conditional loops but it takes a bit of concentration to read the code and get what it is doing. I miss a bit of Ruby&#8217;s syntactic sugar!</p>
+<script src='https://gist.github.com/5267761.js?file=conditional1.io'> </script><noscript>
+  <pre class='gist-no-script'><code># conditional1.io
+
+while(i &amp;lt;= 11, i println; i = i + 1); 
+  &quot;This one goes up to 11&quot; println
+for(i, 1, 11, i println); 
+  &quot;This one goes up to 11&quot; println
+if(false) then(&quot;It is true.&quot; println) 
+  else(&quot;It is false.&quot; println)</code></pre>
+</noscript>
+<p>Io allows you to attach additional parameters but it is up to you to make sure your arguments match correctly. If you miss a parameter your arguments end up in the wrong place, there is no compiler to babysit you. The example below shows the optional increment parameter and prints only odd numbers.</p>
+<script src='https://gist.github.com/5267761.js?file=conditional2.io'> </script><noscript>
+  <pre class='gist-no-script'><code># conditional2.io
+
+for(i, 1, 11, 2, i println); &quot;This one goes up to 11&quot; println</code></pre>
+</noscript>
+<h2 id='operators'>Operators</h2>
+
+<p>One thing I really like about Io is the ability to create your own operators which allows you to build some very succinct and powerful syntax. The following command displays the operators and their precedence.</p>
+<script src='https://gist.github.com/5267761.js?file=operator1.io'> </script><noscript>
+  <pre class='gist-no-script'><code># operator1.io
+
+OperatorTable</code></pre>
+</noscript>
+<p>You can add your own operators and specify their precedence.</p>
+<script src='https://gist.github.com/5267761.js?file=operator2.io'> </script><noscript>
+  <pre class='gist-no-script'><code># operator2.io
+
+OperatorTable addOperator(&quot;xor&quot;, 11)</code></pre>
+</noscript>
+<p>If you want to see a full example of this take a look at my day 3 post</p>
+
+<h2 id='messages'>Messages</h2>
+
+<p>Almost everything in Io is a message. You can query any characteristic of a message and act on it appropriately. The key components are the sender who sends the message, the target who received and executes the message and the message arguments.</p>
+
+<h2 id='reflection'>Reflection</h2>
+
+<p>Here is a simple example of object reflection printing out the ancestors of an object and their slots.</p>
+<script src='https://gist.github.com/5267761.js?file=reflection.io'> </script><noscript>
+  <pre class='gist-no-script'><code># reflection.io
+
+Object ancestors := method(
+  prototype := self proto
+  if(prototype != Object,
+    writeln(&quot;Slots of &quot;, prototype type, &quot;\n---------------&quot;)
+    prototype slotNames foreach(slotName, writeln(slotName))
+    writeln
+    prototype ancestors))
+
+  Animal := Object clone
+  Animal speak := method(
+  &quot;ambiguous animal noise&quot; println)
+  Duck := Animal clone
+  Duck speak := method(
+  &quot;quack&quot; println)
+  Duck walk := method(
+  &quot;waddle&quot; println)
+  disco := Duck clone
+  disco ancestors
+
+
+//Returns 
+//
+//Slots of Duck
+//---------------
+//speak
+//walk
+//type
+//Slots of Animal
+//---------------
+//speak
+//type</code></pre>
+</noscript>
+<h2 id='do'>Do</h2>
+
+<p><em>A Fibonacci sequence starts with two 1s. Each subsequent number is the sum of the two numbers that came before: 1, 1, 2, 3, 5, 8, 13, 21, and so on. Write a program to find the nth Fibonacci number. fib(1) is 1, and fib(4) is 3. As a bonus, solve the problem with recursion and with loops.</em></p>
+<script src='https://gist.github.com/5267761.js?file=fibonacci.io'> </script><noscript>
+  <pre class='gist-no-script'><code># fibonacci.io
+
+fibonacci := method(n,  if(n &amp;lt; 3, 1, fibonacci(n - 1) 
+  + fibonacci(n - 2)))
+
+writeln (&quot;Recursive Solution&quot;)
+println for(i, 1, 20, fibonacci(i) println)
+
+fibonacci2 := method(n,  
+
+val_before_last := 0  
+last_val := 0  
+total := 1  
+
+for(i, 2, n,     
+  val_before_last = last_val    
+  last_val = total    
+  total = last_val + val_before_last  )  
+total)
+
+writeln (&quot;Iterative  Solution&quot;)
+println for(i, 1, 20, fibonacci2(i) println) </code></pre>
+</noscript>
+<p><em>How would you change / to return 0 if the denominator is zero?</em></p>
+<script src='https://gist.github.com/5267761.js?file=divide.io'> </script><noscript>
+  <pre class='gist-no-script'><code># divide.io
+
+(6 / 0) println // inf
+(2 / 4) println // 0.5
+
+Number origDivision := Number getSlot(&quot;/&quot;)
+Number / := method(other,   
+             if (other == 0, 0, self origDivision(other)))
+
+(6 / 0) println // 0
+(2 / 4) println // 0.5</code></pre>
+</noscript>
+<p><em>Write a program to add up all of the numbers in a two-dimensional array.</em></p>
+<script src='https://gist.github.com/5267761.js?file=sumarray.io'> </script><noscript>
+  <pre class='gist-no-script'><code># sumarray.io
+
+array := list(
+list( 1, 3, 5 ),
+list( 10, 20 ),
+list( 100, 200, 300, 500 )
+);
+
+sumArray := method(array,  array flatten sum  )
+
+sumArray(array) println</code></pre>
+</noscript>
+<p><em>Add a slot called myAverage to a list that computes the average of all the numbers in a list. What happens if there are no numbers in a list? (Bonus: Raise an Io exception if any item in the list is not a number.)</em></p>
+<script src='https://gist.github.com/5267761.js?file=myAverage.io'> </script><noscript>
+  <pre class='gist-no-script'><code># myAverage.io
+
+ List myAverage := method ( total := 0
+ self foreach(i, item, 
+   if(item type == &quot;Number&quot;, total = total + item, 
+   Exception raise(&quot;#{item} is not a Number&quot; interpolate)))  
+ total / (self size)
+ )
+ 
+ list(5,2,3,1) myAverage println
+ list() myAverage println 
+ list(5,&quot;t&quot;,6,7) myAverage println</code></pre>
+</noscript>
+<p><em>Write a prototype for a two-dimensional list. The dim(x, y) method should allocate a list of y lists that are x elements long. set(x, y, value) should set a value, and get(x, y) should return that value.</em></p>
+
+<p><em>Bonus: Write a transpose method so that (new_matrix get(y, x)) == matrix get(x,y) on the original list.</em></p>
+
+<p><em>Write the matrix to a file, and read a matrix from a file.</em></p>
+<script src='https://gist.github.com/5267761.js?file=matrix.io'> </script><noscript>
+  <pre class='gist-no-script'><code># matrix.io
+
+ TwoDList := Object clone do (
+  init := method(
+    self lists := list()
+  )
+  
+  dim := method(x, y,
+    self lists preallocateToSize(y)
+    for(i, 0, y - 1, 
+      self lists append(list() preallocateToSize(x)))
+    self
+  )
+  
+  set := method(x, y, value,
+    self lists at(y) atInsert(x, value)
+  )
+  
+  get := method(x, y,
+    self lists at(y) at(x)
+  )
+  
+  transpose := method(
+    transposedList 
+    := TwoDList clone dim(self lists size, 
+       self lists at(0) size)
+    self lists foreach(y, subList, 
+      subList foreach(x, value,
+        transposedList set(y, x, value)
+      )
+    )
+    transposedList
+  ) 
+  
+  println := method(
+    self lists foreach(y, subList, 
+      subList foreach(x, value, 
+        if(x == 0 or x == subList size, &quot;|&quot; print)
+        &quot; #{get(x, y)} |&quot; interpolate print        
+      )
+      &quot;&quot; println      
+    )
+  )
+  
+  toFile := method(name,
+    File with(name) open write(self serialized) close
+  )
+  
+  fromFile := method(name,
+    doRelativeFile(name)
+  ) 
+)
+
+list = TwoDList clone dim(2, 3)
+list set(0, 0, &quot;Apple&quot;)
+list set(1, 0, &quot;Banana&quot;)
+list set(0, 1, &quot;Damson&quot;)
+list set(1, 1, &quot;Elderflower&quot;)
+list set(0, 2, &quot;Grapefruit&quot;)
+list set(1, 2, &quot;Kiwi&quot;)
+
+list get(0, 0) println
+list get(1, 0) println
+list get(0, 1) println
+list get(1, 1) println
+list get(0, 2) println
+list get(1, 2) println
+
+transposedList := list transpose
+
+transposedList toFile(&quot;transposed.txt&quot;)
+
+transposedListFromFile 
+  := TwoDList fromFile(&quot;transposed.txt&quot;)
+
+&quot;2x3 list:&quot; println
+list println
+
+&quot;Transposed 3x2 list:&quot; println
+transposedList println
+
+&quot;Transposed 3x2 list from file:&quot; println
+transposedListFromFile println</code></pre>
+</noscript>
+<p><em>Write a program that gives you ten tries to guess a random number from 1 to 100.</em></p>
+<script src='https://gist.github.com/5267761.js?file=guess.io'> </script><noscript>
+  <pre class='gist-no-script'><code># guess.io
+
+toGuess := 4
+
+guessCount := 0
+prevDiff := nil
+currDiff := nil
+
+while(guessCount &lt; 10, 
+  guessCount = guessCount + 1  
+  currGuess 
+    := File standardInput readLine(&quot;Enter your guess: &quot;) asNumber() 
+
+  currDiff := (toGuess - currGuess) abs  
+  if(currDiff == 0) then (
+    guessCount = 10
+  ) else (
+    if (prevDiff == nil) then(&quot;Try again&quot; println) 
+    elseif(currDiff == prevDiff) then (&quot;Same&quot; println)
+    elseif(currDiff &amp;lt; prevDiff) then (&quot;Hotter&quot; println) 
+    else(&quot;Colder&quot; println)
+    prevDiff = currDiff
+  )
+)
+
+if(currDiff == 0, &quot;Correct!&quot;, &quot;Sorry, you ran out of guesses.&quot;) println</code></pre>
+</noscript>
+<p>Check out my code at <a href='https://github.com/heatherjc07/seven_languages_in_seven_days/tree/master/Io/Day2' target='_blank'>github</a></p>
+  If you enjoyed this post, please
+<a href="https://twitter.com/intent/tweet?url=http://heatherjcampbell.com/development/2012/09/10/io-day-2&text=Io Day 2 &via=hcampbell07" 
+   target="_blank">
+  share it</a> 
+or 
+<a href="https://twitter.com/hcampbell07">
+  follow me on Twitter</a>
+<div id="page-navigation">
+        <div class="clear">&nbsp;</div>
+        <div class="left">
+        
+                <a href="/development/2012/09/06/io-day-3" title="Previous Post:
+Io Day 3">&laquo; Io Day 3</a>
+        
+        </div>
+
+        <div class="right">
+        
+                <a href="/development/2012/09/12/prolog-day-1" title="next Post:
+Prolog Day 1">Prolog Day 1 &raquo; </a>
+        
+        </div>
+        <div class="clear">&nbsp;</div>
+</div> 
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

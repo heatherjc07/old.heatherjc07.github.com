@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Introduction to MongoDB">
+
+    <title>MongoDB Day 1 (Intro)</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a class="button" href="/archive.html" >Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/categories.html" >Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages/about/index.html" >Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages.html" >Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/tags.html" >Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>MongoDB Day 1 (Intro)</h1>
+
+  <p><em>My experience of Day 1 with <a href='http://www.mongodb.org/'>MongoDB</a> in <a href='http://pragprog.com/book/rwdata/seven-databases-in-seven-weeks'>Seven Databases In Seven Weeks</a>.</em></p>
+
+<p>As I mentioned in a previous post I&#8217;m currently working through <a href='http://www.10gen.com/'>10gen&#8217;s</a> DBA and Developer courses for MongoDB along with the book <a href='http://pragprog.com/book/rwdata/seven-databases-in-seven-weeks'>Seven Databases In Seven Weeks</a>. This post is a quick intro to MongoDB, giving you some background on the type of database it is, explaining how to get it installed and looking at the format of the documents stored in it.</p>
+
+<p>MongoDB is a <a href='http://www.json.org/'>JSON</a> document db, where documents are stored in a binary form of JSON, BSON. JSON is a format built on two structures.</p>
+
+<ol>
+<li>A collection of name/value pairs</li>
+
+<li>An ordered list of values in an array like format.</li>
+</ol>
+
+<p>Below is an example of a MongoDB document. You can see the collection is held in {}. The tags and comments values are arrays. tags is an array of strings while comments is an array of documents. This demonstrates an important feature of MongoDB, it supports hierarchy. You can have documents nested within your documents. This is something you can&#8217;t achieve in a relational database.</p>
+<script src='https://gist.github.com/5322470.js?file=blog.json'> </script><noscript>
+  <pre class='gist-no-script'><code># blog.json
+
+{
+   name : &quot;Heather Campbell&quot;,
+   title: &quot;Getting Started with MongoDB&quot;,
+   created : &quot;Thu Sep 20 2007 00:00:00 GMT -0700 (PDT)&quot;,
+   content : &quot;blah mongodb blah&quot;,
+   tags : [&quot;mongodb&quot;, &quot;nosql&quot;, &quot;databases&quot;, &quot;data&quot;],
+   comments : [
+                { 
+                  name: &quot;Jack Black&quot;, 
+                  posted: &quot;Sat Sep 22 2007 00:00:00 GMT -0700&quot;
+                  text: &quot;Good Intro&quot;
+                },
+                { 
+                  name: &quot;Paula Mills&quot;, 
+                  posted: &quot;Mon Sep 24 2007 00:00:00 GMT -0700&quot;
+                  text: &quot;Thanks for posting this&quot;
+                }
+                ]
+}
+</code></pre>
+</noscript>
+<p>One of the issues people often talk about with Relational Databases is the mismatch between how the database and their code represents data. Hence the need for ORM tools like Hibernate and iBatis and the Java Persistence API. With MongoDB you&#8217;ll notice a more similar feel to how you represent data in the database to your code. The collection of name/value pairs it like a class and it&#8217;s properties. The ordered list of values feels like an array.</p>
+
+<p>Documents with a similar purpose are grouped into a collection. Which if you are coming from a relational background is a bit like a table except that the documents in the collection can vary in structure. This is because MongoDB is schemaless. With a relational database you would define a schema upfront before inserting records by creating tables and constraints. With MongoDB you just insert your documents into a collection and there are no checks for a particular set of fields. For example the three documents below could all be added to the database as part of the same collection even though they have different fields.</p>
+<script src='https://gist.github.com/5322470.js?file=people.json'> </script><noscript>
+  <pre class='gist-no-script'><code># people.json
+
+{
+   name : &quot;John Black&quot;
+}
+
+
+{
+   name : &quot;Kate Reynolds&quot;,
+   age  : 35 
+}
+
+{
+   name : &quot;Jane Scott&quot;,
+   profession : &quot;programmer&quot; 
+} 
+</code></pre>
+</noscript>
+<p>Although there is no explicit schema when you write code to interact with your database it needs to be aware of the structure of the data so it knows what fields to query in other words there is still an implicit schema. The flexibility of this approach is in keeping with the increase in popularity of dynamic languages and an agile approach to development.</p>
+
+<p>MongoDB supports the concept of indexes. When you insert a document it generates a field called <code>_id</code> which acts like the primary key of the document and is unique.You can also define your own indexes on a field or multiple fields of a particular collection of documents.</p>
+
+<p>If you&#8217;ve worked with a relational database you&#8217;re probably used to writing queries with joins between tables to pull back the information you require. MongoDB doesn&#8217;t support joins. In some cases this will mean information is stored multiple times against different documents. Generally if you want to normalise the data and keep it in it&#8217;s own separate document you can get round the lack of joins by storing it&#8217;s unique <code>_id</code> field as a field of the documents which are associated with it.</p>
+
+<p>E.g. in the example below you could retrieve the person record and then using the value stored in the country field do a second query to retrieve the country record.</p>
+<script src='https://gist.github.com/5322470.js?file=insert.js'> </script><noscript>
+  <pre class='gist-no-script'><code># insert.js
+
+db.countries.insert({
+    &quot;_id&quot;: &quot;FR&quot;
+    &quot;name&quot;: &quot;France&quot;
+})
+
+db.people.insert({
+    &quot;name&quot;: &quot;Jean Pierre&quot;
+    &quot;country&quot;: &quot;FR&quot;
+})</code></pre>
+</noscript>
+<p>In general this approach should be sufficient but where you want to embed documents from multiple collections in documents from one collection there are DBRefs. More information about them can be found <a href='http://docs.mongodb.org/manual/applications/database-references'>here</a>.</p>
+
+<p>MongoDB doesn&#8217;t have the idea of a transaction which allows you to update multiple documents in an atomic fashion. Generally this isn&#8217;t an issue as unlike a relational database where data is often held across multiple tables in MongoDB it is normally held within one document. The update of a single document is atomic. If you need to update multiple documents take a look at the two phase commit pattern described <a href='http://docs.mongodb.org/manual/tutorial/perform-two-phase-commits'>here</a> which uses a transaction collection to replicate the behaviour of a transaction in the relational sense.</p>
+
+<p>Full instructions for getting MongoDB set up can be found <a href='http://docs.mongodb.org/manual/installation'>here</a>. I&#8217;ve been working in a Windows environment, running it manually.</p>
+
+<p>That was a very quick high level introduction to the database. In my next post I&#8217;m going to cover CRUD in MongoDB.</p>
+  If you enjoyed this post, please
+<a href="https://twitter.com/intent/tweet?url=http://heatherjcampbell.com/development/2013/01/30/mongodb-day-1-intro&text=MongoDB Day 1 (Intro) &via=hcampbell07" 
+   target="_blank">
+  share it</a> 
+or 
+<a href="https://twitter.com/hcampbell07">
+  follow me on Twitter</a>
+<div id="page-navigation">
+        <div class="clear">&nbsp;</div>
+        <div class="left">
+        
+                <a href="/development/2013/01/30/mongodb-day-1-crud-part-1-create" title="Previous Post:
+MongoDB Day 1 (CRUD Part 1: Create)">&laquo; MongoDB Day 1 (CRUD Part 1: Create)</a>
+        
+        </div>
+
+        <div class="right">
+        
+                <a href="/development/2013/02/05/mongodb-day-1-crud-part-2-read" title="next Post:
+MongoDB Day 1 (CRUD Part 2: Read)">MongoDB Day 1 (CRUD Part 2: Read) &raquo; </a>
+        
+        </div>
+        <div class="clear">&nbsp;</div>
+</div> 
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Getting started with reveal.js">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a class="button" href="/archive.html" >Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/categories.html" >Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages/about/index.html" >Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages.html" >Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/tags.html" >Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>reveal.js</h1>
+
+  <p>Fed up with Powerpoint I decided to take a look at <a href='http://lab.hakim.se/reveal-js/#/'>reveal.js</a> to see how simple it would be to put together a presentation with it and I found it really easy to get up and running with. reveal.js is a framework for creating presentations using html. If you come from a coding background and are used to working with CSS, HTML and JavaScript you&#8217;ve got all the skills to start creating beautiful presentations. There is also an <a href='http://slid.es/'>online graphical interface</a> for noncoders or anyone who prefers that.</p>
+
+<h2 id='getting_started'>Getting started</h2>
+
+<p>First thing to do is get a <a href='https://github.com/hakimel/reveal.js/'>copy</a> of the framework from Github. The framework includes a number of sample themes for slides, support for printing and exporting your slides to PDF and a number of plugins including support for speaker notes, writing your slides in markdown syntax and the ability to zoom.</p>
+
+<h2 id='creating_the_layout_of_your_presentation'>Creating the layout of your presentation</h2>
+
+<p>Just to show you how simple it is here is an example presentation which is basically one html file. Copy this code and store in the top level directory of your reveal.js directory.</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;HTML5 Presentations How-To&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/reveal.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/theme/default.css&quot;&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+   &lt;div class=&quot;reveal&quot;&gt;
+     &lt;div class=&quot;slides&quot;&gt;
+       &lt;section&gt;
+         &lt;h1&gt;Reveal.js&lt;/h1&gt;
+         &lt;h3&gt;Creating beautiful presentations&lt;/h3&gt;
+       &lt;/section&gt;
+       &lt;section&gt;
+         &lt;h1&gt;Getting Started&lt;/h1&gt;
+         &lt;p&gt;It&#39;s really easy when you know...&lt;/p&gt;
+         &lt;p class=&quot;fragment&quot;&gt;JavaScript&lt;/p&gt;
+         &lt;p class=&quot;fragment&quot;&gt;HTML&lt;/p&gt;
+         &lt;p class=&quot;fragment&quot;&gt;CSS&lt;/p&gt;
+       &lt;/section&gt;
+       &lt;section&gt;
+         &lt;h1&gt;It come with...&lt;/h1&gt;
+           &lt;ul&gt;
+             &lt;li&gt;themes&lt;/li&gt;
+             &lt;li&gt;plugins&lt;/li&gt;
+           &lt;/ul&gt;
+           &lt;p&gt; to get your started!&lt;/p&gt;
+       &lt;/section&gt;
+       &lt;section&gt;
+          &lt;section&gt;
+            &lt;h1&gt;Plugins are neat&lt;/h1&gt;
+            &lt;h3&gt;They let you do stuff like..&lt;/h3&gt;
+          &lt;/section&gt;
+          &lt;section&gt;
+            &lt;h1&gt;Include speaker notes&lt;/h1&gt;
+          &lt;/section&gt;
+          &lt;section&gt;
+            &lt;h1&gt;Write your slides in markdown&lt;/h1&gt;
+          &lt;/section&gt;
+          &lt;section&gt;
+            &lt;h1&gt;And best of all you can create your own&lt;/h1&gt;
+          &lt;/section&gt;
+       &lt;/section&gt;
+       &lt;script src=&quot;lib/js/head.min.js&quot;&gt;&lt;/script&gt;
+       &lt;script src=&quot;js/reveal.min.js&quot;&gt;&lt;/script&gt;
+       Reveal.initialize({
+         controls: true,
+         keyboard: true,
+         center: true,
+         mouseWheel: true
+	  });
+      &lt;/div&gt;
+     &lt;/div&gt;
+   &lt;/body&gt;
+  &lt;/html&gt;</code></pre>
+
+<p>In the header you can see I&#8217;ve included the reveal.js stylesheet and used the default theme that comes with it. At the bottom of the file just before the closing body tag I&#8217;ve included the reveal.js JavaScript files and initialised an instance of Reveal. When I create an instance I can specify certain properties to control how my presentation displays. In the example I&#8217;ve allowed the presentation to be navigated via the mouse or keyboard. I&#8217;ve displayed controls in the bottom right corner which shows you how you can navigate the slides. Center just means vertical centring of slides. The slides are held within a reveal div and slides div. Each slide is represented by a section. You can gradually display elements using the fragment class as demonstrated on the second slide and you can vertically move between slides as well as the traditional horizontal navigation. This is demonstrated in the last slide and achieved by nesting sections within a section.</p>
+
+<p>To view it you just open up the html file in your browser. The F key allows you to view the presentation full screen.</p>
+
+<h2 id='moving_beyond_the_basics'>Moving Beyond the Basics</h2>
+
+<p>As I mentioned before reveal.js comes with lots of great features to start you off including themes, different ways of transitioning between slides and plugins to allow you to extend what the standard framework does. Once you are comfortable with this you can customise the framework developing your own themes, transitions and plugins using CSS and JavaScript. The API allows you to hook into events such as the initial display of the page and moving between slides. It gives you a lot of flexibility and because it is basically JavaScript/CSS/HTML it is very portable although it won&#8217;t behave nicely on older browsers.</p>
+
+<h2 id='summing_up'>Summing Up</h2>
+
+<p>If you are interesting in seeing sample presentations take a look <a href='https://github.com/hakimel/reveal.js/wiki/Example-Presentations'>here</a>. I read <a href='http://www.packtpub.com/how-to-html5-presentations/book'>Instant HTML5 Presentations How-to</a> and found it a really quick way to get an overview of how I could develop and customise presentation using reveal.js. I know I could have found this out myself on the web but sometimes it is great to have everything pulled together into a tutorial so you know what is available and what you want to explore further.</p>
+
+<p>As for the framework I really like how simple it is to pull a presentation together and create something which has a nice finish. I&#8217;ll definitely be using it for my next presentation.</p>
+  If you enjoyed this post, please
+<a href="https://twitter.com/intent/tweet?url=http://heatherjcampbell.com/tutorial/2014/02/28/revealjs&text=reveal.js &via=hcampbell07" 
+   target="_blank">
+  share it</a> 
+or 
+<a href="https://twitter.com/hcampbell07">
+  follow me on Twitter</a>
+<div id="page-navigation">
+        <div class="clear">&nbsp;</div>
+        <div class="left">
+        
+                <a href="/presentations/2014/01/23/wwc-belfast-intro-to-ruby" title="Previous Post:
+WWC Belfast: Intro to Ruby">&laquo; WWC Belfast: Intro to Ruby</a>
+        
+        </div>
+
+        <div class="right">
+        
+        </div>
+        <div class="clear">&nbsp;</div>
+</div> 
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

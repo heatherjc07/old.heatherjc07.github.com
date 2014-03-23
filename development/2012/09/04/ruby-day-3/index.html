@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Heather Campbell" />
+    <meta name="description" content="Ruby Day 3: Seven Languages in Seven Weeks">
+
+    <title>Ruby Day 3</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Technical Musings of a Mummy</a></h1>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a class="button" href="/archive.html" >Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/categories.html" >Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages/about/index.html" >Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/pages.html" >Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a class="button" href="/tags.html" >Tags</a></li>
+      	
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h5 class="connect">Connect with Me</h5>
+            
+
+            <a href="mailto:heatherjcampbell@hotmail.co.uk"><img src="/assets/themes/dinky/images/email.png" alt="email"/></a>
+            
+            
+            <a href="http://github.com/heatherjc07/" rel="me"><img src="/assets/themes/dinky/images/github.png" alt="github"/></a>
+            
+            
+            <a href="http://twitter.com/HCampbell07/" rel="me"><img src="/assets/themes/dinky/images/twitter.png" alt="twitter"/></a>
+            
+            
+            
+            
+            
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Ruby Day 3</h1>
+
+  <p><em>My experience with day three of exploring Ruby through <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks' target='_blank'>Seven Languages in Seven Weeks</a>.</em></p>
+
+<p>The third day takes you past the standard features to look at solving non trivial problems with Ruby. It focuses on Metaprogramming - writing programs that write programs.</p>
+
+<p>An example of the use of metaprogramming is in ActiveRecord, a piece of rails used to connect business objects and database tables.</p>
+<script src='https://gist.github.com/5250428.js?file=active.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># active.rb
+
+class School &lt; ActiveRecord::Base
+ has_many :teachers
+ has_many :pupils
+ has_one :head_master
+end</code></pre>
+</noscript>
+<p>The has_many method adds all the instance variables and methods needed to establish a many to one relationship. has_one adds all the instance variables and methods needed to establish a one to one relationship. The methods read like English making them easy to understand.</p>
+
+<h2 id='open_classes'>Open Classes</h2>
+
+<p>You have the ability to change the definition of any class at any time e.g. to add behaviour. For example we might want to add a common blank? method across two classes to allow us to check strings.</p>
+<script src='https://gist.github.com/5250428.js?file=open.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># open.rb
+
+class NilClass
+  def blank?
+    true
+  end
+end
+
+class String
+  def blank?
+    self.size == 0
+  end
+end
+
+[&quot;&quot;,&quot;person&quot;,nil].each do |element|
+    puts element unless element.blank?
+end</code></pre>
+</noscript>
+<p>The classes have already been defined so this invocation modifies the classes adding a blank? method. We then make use of ducktyping as we check an array for blank elements. It doesn&#8217;t matter if the element is a nil or a String as both support the blank? behaviour. The ability to redefine can make for very readable code but you need to use it responsibly.</p>
+
+<p>You may have heard of DSL, Domain Specific Languages, a language created to represent information for a particular domain. Open classes in Ruby can be useful in creating a DSL e.g. expressing units in a language relevant to your business domain.</p>
+<script src='https://gist.github.com/5250428.js?file=dsl.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># dsl.rb
+
+class Numeric 
+
+  def ounces 
+    self 
+  end 
+
+  def pound 
+    self * 16.ounces 
+  end 
+
+  def stone 
+    self * 14.pound 
+  end 
+
+end 
+
+puts 32.ounces 
+puts 4.pound
+
+# Returns 
+# 32
+# 64 </code></pre>
+</noscript>
+<h2 id='method_missing'>method_missing</h2>
+
+<p>If Ruby goes to call a method and finds it doesn&#8217;t exist it calls a debug method method_missing which prints out some diagnostic information. It can aid with debugging but it can also be overridden to provide some very expressive syntax. e.g. representing Roman numerals Could create a method and have syntax like</p>
+<script src='https://gist.github.com/5250428.js?file=roman_num1.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># roman_num1.rb
+
+Roman.number_for &quot;ii&quot;</code></pre>
+</noscript>
+<p>However you can create even easier read syntax overriding the method_missing method</p>
+<script src='https://gist.github.com/5250428.js?file=roman_num2.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># roman_num2.rb
+
+class Roman
+  def self.method_missing name, *args
+    roman = name.to_s
+    roman.gsub!(&quot;IV&quot;, &quot;IIII&quot;)
+    roman.gsub!(&quot;IX&quot;, &quot;VIIII&quot;)
+    roman.gsub!(&quot;XL&quot;, &quot;XXXX&quot;)
+    roman.gsub!(&quot;XC&quot;, &quot;LXXXX&quot;)
+     (roman.count(&quot;I&quot;) +
+      roman.count(&quot;V&quot;) * 5 +
+      roman.count(&quot;X&quot;) * 10 +
+      roman.count(&quot;L&quot;) * 50 +
+      roman.count(&quot;C&quot;) * 100)
+  end
+end
+
+
+puts Roman.X
+puts Roman.XC
+puts Roman.XII
+
+
+# Returns 
+# 10
+# 90
+# 12 </code></pre>
+</noscript>
+<p>We take the name of the method called and convert it to a string. We then handle special cases like 4, 9 etc. by converting from the 5 - 1 syntax (IV) or 10 -1 syntax (IX) to one which is easily added up i.e. 4 value 1&#8217;s and a 5 value and 4 value 1s. We then calculate the total amount converting characters to their numeric equivalent. It comes at price because now if we are missing a method Ruby won&#8217;t be able to tell us. The class would need to be enhanced to make sure it was accepting valid Roman numerals.</p>
+
+<h2 id='modules'>Modules</h2>
+
+<p>I found it hard understanding the Modules part of the chapter so I looked elsewhere for some examples to help build my understanding. I&#8217;ve taken some examples from &#8216;Ruby Best Practices&#8217;</p>
+
+<p>Modules can be used for namespacing. e.g. in the example below both XML and PDF have document classes.</p>
+<script src='https://gist.github.com/5250428.js?file=module.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># module.rb
+
+# somewhere in your_xml_lib 
+
+module XML 
+
+  class Document 
+    # ... 
+  end 
+
+end 
+
+# somewhere in their_pdf_lib 
+
+module PDF 
+
+  class Document 
+    # ... 
+  end 
+
+end
+
+#In your class
+
+require &quot;your_xml_lib&quot; 
+require &quot;their_pdf_lib&quot; 
+
+#this pair of calls refer to two completely different classes 
+pdf_document = PDF::Document.new 
+xml_document = XML::Document.new </code></pre>
+</noscript>
+<p>As previously discussed in my Ruby Day 2 blog modules can be used to add behaviour to classes by including a module. E.g. providing methods to allow objects to be ordered, comparable and enumerable modules.</p>
+
+<p>You can also extend the behaviour of the class itself by extending it with a module. include makes the module&#8217;s methods available to the instance of a class, while extend makes these methods available to the class itself.</p>
+<script src='https://gist.github.com/5250428.js?file=roar.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># roar.rb
+
+module Roar 
+  def roar 
+    puts 'roooooaar!'
+  end 
+end 
+
+class Lion 
+  include Roar 
+end 
+
+# roooooaar!
+Lion.new.roar 
+# NoMethodError: undefined method 'roar' for Lion:Class 
+Lion.roar 
+ 
+class Lion 
+  extend Roar 
+end 
+
+# roooooaar!
+Lion.roar
+# NoMethodError: undefined method 'roar' for #Lion 
+Lion.new.roar </code></pre>
+</noscript>
+<p>The following bit of code mixes the methods defined by Greeter directly into the Greeter object itself.</p>
+<script src='https://gist.github.com/5250428.js?file=greeter.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># greeter.rb
+
+module Greeter 
+  extend self 
+  def hello 
+    &quot;hi&quot; 
+  end 
+end 
+
+Greeter.hello 
+# Returns 
+# &quot;hi&quot;</code></pre>
+</noscript>
+<h2 id='self_study'>Self Study</h2>
+
+<p>Modify the CSV application to support an each method to return a CsvRow object. Use method_missing on that CsvRow to return the value for the column for a given heading. For example, for the file: one, two lions, tigers allow an API that works like this: csv = RubyCsv.new csv.each {|row| puts row.one} This should print &#8220;lions&#8221;.</p>
+<script src='https://gist.github.com/5250428.js?file=csv.rb'> </script><noscript>
+  <pre class='gist-no-script'><code># csv.rb
+
+module ActsAsCsv
+  def self.included(base)
+    base.extend ClassMethods
+  end
+
+  module ClassMethods
+    def acts_as_csv
+      include InstanceMethods
+    end
+  end
+
+  module InstanceMethods
+    def read
+      @csv_contents = []
+      filename = self.class.to_s.downcase + '.txt'
+      file = File.new(filename)
+      @headers = file.gets.chomp.split(', ')
+      file.each do |row|
+        @csv_contents &lt;&lt; row.chomp.split(', ')
+      end
+    end
+  
+    def each(&amp;block)    
+      @csv_contents.each do |r|
+        row = CsvRow.new(@headers, r)
+        block.call(row)
+      end
+    end
+
+    attr_accessor :headers, :csv_contents, :csv_rows
+  
+    def initialize
+      read
+    end
+  end
+
+  class CsvRow
+
+    attr_accessor :header_row, :content_row
+
+    def initialize(header_row, content_row)
+      @header_row = header_row
+      @content_row = content_row
+    end
+
+    def method_missing(name, *args)
+      idx = @header_row.index(name.to_s)
+      return @content_row[idx]  
+    end
+  end  
+end
+
+class RubyCsv # no inheritance! You can mix it in
+  include ActsAsCsv
+  acts_as_csv
+  
+end
+
+m = RubyCsv.new
+puts m.headers.inspect
+puts m.csv_contents.inspect
+m.each{|row| puts row.Surname}</code></pre>
+</noscript>
+<p>Check out my code at <a href='https://github.com/heatherjc07/seven_languages_in_seven_days/tree/master/Ruby/Day3' target='_blank'>github</a></p>
+  If you enjoyed this post, please
+<a href="https://twitter.com/intent/tweet?url=http://heatherjcampbell.com/development/2012/09/04/ruby-day-3&text=Ruby Day 3 &via=hcampbell07" 
+   target="_blank">
+  share it</a> 
+or 
+<a href="https://twitter.com/hcampbell07">
+  follow me on Twitter</a>
+<div id="page-navigation">
+        <div class="clear">&nbsp;</div>
+        <div class="left">
+        
+                <a href="/development/2012/08/30/final-thoughts-on-three-days-of-ruby" title="Previous Post:
+Final Thoughts on Three Days of Ruby">&laquo; Final Thoughts on Three Days of Ruby</a>
+        
+        </div>
+
+        <div class="right">
+        
+                <a href="/development/2012/09/06/io-day-3" title="next Post:
+Io Day 3">Io Day 3 &raquo; </a>
+        
+        </div>
+        <div class="clear">&nbsp;</div>
+</div> 
+  
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'technicalmusingsofamummy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+
